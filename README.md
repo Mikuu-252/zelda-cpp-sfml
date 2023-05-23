@@ -16,6 +16,9 @@ W projekcie chciałbym zamieścić:
 <li>Mapę świata</li>
 </ul>
 
+## Used Sprites
+Link sprite https://www.spriters-resource.com/custom_edited/thelegendofzeldacustoms/sheet/17402/
+
 ## Authors
 Dawid Góra
 

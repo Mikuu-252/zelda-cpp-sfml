@@ -1,6 +1,10 @@
-#include <iostream>
+#include <SFML/Graphics.hpp>
+#include "Game.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+
+    Game game;
+    game.gameLoop();
+
     return 0;
 }
