@@ -4,7 +4,7 @@
 
 Game::Game() {
     mainWindow.create(sf::VideoMode(screenWidth, screenHeight), "The copy of Zelda");
-
+    Player player;
 }
 
 void Game::gameLoop() {
@@ -36,7 +36,7 @@ void Game::gameLoop() {
 }
 
 void Game::createObjects() {
-    Player player;
+    //Player player;
 }
 
 void Game::updateObjects() {

@@ -7,13 +7,23 @@
 class Player {
     sf::Texture texture;
     sf::Sprite sprite;
-    sf::IntRect textureDirection[4];
+    sf::IntRect animDown[9];
+    sf::IntRect animLeft[9];
+    sf::IntRect animUp[9];
+    sf::IntRect animRight[9];
+
     float playerSpeed;
+
+    int frameNumber;
+    int animNumber;
+    int animSpeed;
+    sf::Clock clock;
 
 
     void loadTexture();
     void init();
     void playerMove();
+    void playerAnim(sf::Vector2f movement);
 
 public:
     Player();
