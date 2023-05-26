@@ -13,6 +13,7 @@ class Player {
     sf::IntRect animRight[9];
 
     float playerSpeed;
+    int lastMove;
 
     int frameNumber;
     int animNumber;
@@ -22,13 +23,16 @@ class Player {
 
     void loadTexture();
     void init();
-    void playerMove();
     void playerAnim(sf::Vector2f movement);
+    void playerMove(sf::Vector2f movement);
 
 public:
+    const sf::Sprite &getSprite() const;
     Player();
-    void update();
     void draw(sf::RenderWindow& window);
+
+    void negativeUpdate();
+    void update();
 };
 
 
