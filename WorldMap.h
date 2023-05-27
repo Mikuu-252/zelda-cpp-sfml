@@ -5,8 +5,13 @@
 #include "Wall.h"
 #include "Floor.h"
 
+struct LevelCoordinate {
+    int x;
+    int y;
+    int z;
+};
 struct Level{
-
+    LevelCoordinate levelCoordinate;
     std::vector<Wall> walls;
     std::vector<Floor> floors;
 
@@ -15,20 +20,19 @@ struct Level{
 
 class WorldMap {
     std::vector<Level> levels;
-    int activeLevel = 0;
+    LevelCoordinate activeLevel;
     void init();
 
 
     //Level func
+    void prepareLevel0();
     void prepareLevel130();
     void prepareLevel030();
 
 public:
     WorldMap();
     const Level &getLevel() const;
-
-public:
-    void debugLevelInc();
+    void debugLevel();
 };
 
 

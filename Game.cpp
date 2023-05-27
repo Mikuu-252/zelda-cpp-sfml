@@ -23,7 +23,7 @@ void Game::gameLoop() {
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::F12)) {
-                worldMap.debugLevelInc();
+                worldMap.debugLevel();
             }
         }
 

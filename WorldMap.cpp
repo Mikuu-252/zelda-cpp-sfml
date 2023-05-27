@@ -8,12 +8,30 @@ WorldMap::WorldMap() {
 
 
 void WorldMap::init() {
+    activeLevel.x=1;
+    activeLevel.y=3;
+    activeLevel.z=0;
+
+
+    prepareLevel0();
     prepareLevel130();
     prepareLevel030();
 }
 
+void WorldMap::prepareLevel0() {
+    Level level;
+
+
+    levels.push_back(level);
+}
+
 void WorldMap::prepareLevel130() {
     Level level;
+
+    // Coordinate
+    level.levelCoordinate.x=1;
+    level.levelCoordinate.y=3;
+    level.levelCoordinate.z=0;
 
     //Floor
     for (int x = 5; x < 10; ++x) {
@@ -42,6 +60,11 @@ void WorldMap::prepareLevel130() {
 void WorldMap::prepareLevel030() {
     Level level;
 
+    // Coordinate
+    level.levelCoordinate.x=0;
+    level.levelCoordinate.y=3;
+    level.levelCoordinate.z=0;
+
     level.walls.push_back(Wall(0,8,32,"wall12x2"));
     level.walls.push_back(Wall(11,2,32,"wall1x3"));
     level.walls.push_back(Wall(0,2,32,"wall2x6"));
@@ -54,12 +77,21 @@ void WorldMap::prepareLevel030() {
     levels.push_back(level);
 }
 
-void WorldMap::debugLevelInc() {
-    activeLevel += 1;
+void WorldMap::debugLevel() {
+    activeLevel.x=0;
+    activeLevel.y=3;
+    activeLevel.z=0;
 }
 
 const Level &WorldMap::getLevel() const {
-    return levels[activeLevel];
+    int index = 0;
+    for (Level level: levels) {
+        if(level.levelCoordinate.x == activeLevel.x && level.levelCoordinate.y == activeLevel.y && level.levelCoordinate.z == activeLevel.z) {
+            return levels[index];
+        }
+        index++;
+    }
+    return levels[0];
 }
 
 
