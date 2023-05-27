@@ -4,7 +4,6 @@
 Player::Player() {
     loadTexture();
     init();
-    clock.restart();
 }
 
 void Player::loadTexture() {
@@ -46,7 +45,7 @@ void Player::init() {
     //Texture
     sprite.setTexture(texture);
     sprite.setTextureRect(animDown[0]);
-    sprite.setPosition(360, 240);
+    sprite.setPosition(256, 192);
 
     sf::FloatRect spriteBounds = sprite.getLocalBounds();
     sprite.setOrigin(spriteBounds.width / 2, spriteBounds.height / 2);

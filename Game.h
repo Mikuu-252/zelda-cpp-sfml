@@ -5,16 +5,13 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 #include "Wall.h"
+#include "WorldMap.h"
 
-struct Level{
-    std::vector<Wall> walls;
-
-};
 
 class Game {
     int screenWidth = 384;
     int screenHeight = 320;
-    int fps = 60;
+    int fps = 240;
     enum class GameState{Pause, Play, Menu};
     GameState gameState;
     sf::RenderWindow mainWindow;
@@ -22,21 +19,19 @@ class Game {
 
     //Game objects
     Player player;
-    std::vector<Level> levels;
-    int activeLevel = 0;
+    WorldMap worldMap;
 
-    //Level func
-    void prepareLevel1();
-    void prepareLevel2();
 
 
     //Func
     void createObjects();
-
     void updateObjects();
     void drawObjects();
 
+    //Collisions
     bool checkCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2);
+    bool checkBorderCollision();
+    bool anyWallCollision();
 
 public:
     Game();

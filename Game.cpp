@@ -5,6 +5,7 @@
 
 Game::Game() {
     mainWindow.create(sf::VideoMode(screenWidth, screenHeight), "The copy of Zelda");
+    mainWindow.setFramerateLimit(fps);
 }
 
 void Game::gameLoop() {
@@ -22,7 +23,7 @@ void Game::gameLoop() {
             }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::F12)) {
-                activeLevel += 1;
+                worldMap.debugLevelInc();
             }
         }
 
@@ -41,44 +42,19 @@ void Game::gameLoop() {
 
 //Create
 void Game::createObjects() {
-    //Level1
-    prepareLevel1();
-    prepareLevel2();
-}
-
-void Game::prepareLevel1() {
-    Level level;
-    for (int x = 0; x < 1; ++x) {
-        level.walls.push_back(Wall(x,3,32,"wall2"));
-        //walls.push_back(Wall(x,9,32,"wall"));
-    }
-    levels.push_back(level);
 
 }
 
-void Game::prepareLevel2() {
-    Level level;
-    for (int x = 0; x < 12; ++x) {
-        level.walls.push_back(Wall(x,3,32,"wall"));
-        //level.walls.push_back(Wall(x,9,32,"wall"));
-    }
 
-    levels.push_back(level);
-}
 
 
 //Update
 void Game::updateObjects() {
 
     //Wall colision
-    bool anyWallCollision = false;
-    for (Wall wall: levels[activeLevel].walls) {
-        if(Game::checkCollision(player.getSprite(), wall.getSprite())){
-            anyWallCollision = true;
-        }
-    }
 
-    if(anyWallCollision) {
+
+    if(anyWallCollision() || checkBorderCollision()) {
         player.negativeUpdate();
     } else {
         player.update();
@@ -89,10 +65,13 @@ void Game::updateObjects() {
 //Draw
 void Game::drawObjects() {
 
-    for (Wall wall: levels[activeLevel].walls) {
+    for (Wall wall: worldMap.getLevel().walls) {
         wall.draw(mainWindow);
     }
 
+    for (Floor floor: worldMap.getLevel().floors) {
+        floor.draw(mainWindow);
+    }
     player.draw(mainWindow);
 }
 
@@ -102,6 +81,25 @@ bool Game::checkCollision(const sf::Sprite &sprite1, const sf::Sprite &sprite2) 
     sf::FloatRect bounds2 = sprite2.getGlobalBounds();
 
     return bounds1.intersects(bounds2);
+}
+
+bool Game::anyWallCollision() {
+    bool anyWallCollision = false;
+
+    for (Wall wall: worldMap.getLevel().walls) {
+        if(Game::checkCollision(player.getSprite(), wall.getSprite())){
+            anyWallCollision = true;
+        }
+    }
+
+    return anyWallCollision;
+}
+
+bool Game::checkBorderCollision() {
+    if(player.getSprite().getPosition().x < 16 || player.getSprite().getPosition().y < 16 || player.getSprite().getPosition().x > screenWidth-16 || player.getSprite().getPosition().y > screenHeight-16) {
+        return true;
+    }
+    return false;
 }
 
 
