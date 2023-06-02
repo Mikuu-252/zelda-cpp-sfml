@@ -27,11 +27,14 @@ class Game {
     void createObjects();
     void updateObjects();
     void drawObjects();
+    void changeLevel();
 
     //Collisions
     bool checkCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2);
     bool checkBorderCollision();
     bool anyWallCollision();
+    bool checkLevelChange();
+
 
 public:
     Game();

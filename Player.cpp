@@ -7,7 +7,7 @@ Player::Player() {
 }
 
 void Player::loadTexture() {
-    if (!texture.loadFromFile("assets/character.png")) {
+    if (!texture.loadFromFile("../assets/entity/character.png")) {
         std::cerr << "Texture error player \n";
     }
 }
@@ -73,6 +73,7 @@ void Player::update() {
 
     playerMove(movement);
     playerAnim(movement);
+
 }
 
 void Player::negativeUpdate() {
@@ -124,5 +125,27 @@ void Player::playerAnim(sf::Vector2f movement) {
 
 const sf::Sprite &Player::getSprite() const {
     return sprite;
+}
+
+int Player::getLastMove() const {
+    return lastMove;
+}
+
+void Player::changeLevelPos() {
+    int x = sprite.getPosition().x;
+    int y = sprite.getPosition().y;
+
+    if (lastMove == 1) {
+        sprite.setPosition(x, 320-34);
+    }
+    if (lastMove == 2) {
+        sprite.setPosition(x, 98);
+    }
+    if (lastMove == 3) {
+        sprite.setPosition(384-34, y);;
+    }
+    if (lastMove == 4) {
+        sprite.setPosition(34, y);
+    }
 }
 

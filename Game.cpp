@@ -51,14 +51,21 @@ void Game::createObjects() {
 //Update
 void Game::updateObjects() {
 
+    //Change level
+    if(checkLevelChange())
+    {
+        changeLevel();
+    }
+
     //Wall colision
-
-
     if(anyWallCollision() || checkBorderCollision()) {
         player.negativeUpdate();
     } else {
+        //Player move
         player.update();
     }
+
+
 
 }
 
@@ -100,6 +107,50 @@ bool Game::checkBorderCollision() {
         return true;
     }
     return false;
+}
+
+void Game::changeLevel() {
+    int lastMove = player.getLastMove();
+
+    player.changeLevelPos();
+    if (lastMove == 1) {
+        worldMap.changeActiveLevel(0,-1,0);
+    }
+    if (lastMove == 2) {
+        worldMap.changeActiveLevel(0,1,0);
+
+    }
+    if (lastMove == 3) {
+        worldMap.changeActiveLevel(-1,0,0);
+
+    }
+    if (lastMove == 4) {
+        worldMap.changeActiveLevel(1,0,0);
+    }
+
+}
+
+bool Game::checkLevelChange() {
+    int x = player.getSprite().getPosition().x;
+    int y = player.getSprite().getPosition().y;
+
+
+    if (y == 96) {
+        return true;
+    } else if (y == screenHeight - 32) {
+        return true;
+    }
+
+    if ( x == 32) {
+        return true;
+    } else if (x == screenWidth - 32) {
+        return true;
+    }
+
+    return false;
+
+
+
 }
 
 

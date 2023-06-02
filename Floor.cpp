@@ -8,7 +8,7 @@ Floor::Floor(int x, int y, int size, std::string filename): x(x), y(y), size(siz
 }
 
 void Floor::loadTexture(std::string filename) {
-    if (!texture.loadFromFile("assets/" + filename + ".png")) {
+    if (!texture.loadFromFile("../assets/world/" + filename + ".png")) {
         std::cerr << "Texture error for wall: " << filename << "\n";
     }
     else {

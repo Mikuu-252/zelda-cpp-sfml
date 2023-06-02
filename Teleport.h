@@ -1,0 +1,10 @@
+#ifndef PO23_SR17_252241_TELEPORT_H
+#define PO23_SR17_252241_TELEPORT_H
+
+
+class Teleport {
+    
+};
+
+
+#endif //PO23_SR17_252241_TELEPORT_H

@@ -26,13 +26,24 @@ class WorldMap {
 
     //Level func
     void prepareLevel0();
+
     void prepareLevel130();
     void prepareLevel030();
+
+    void prepareLevel120();
+    void prepareLevel020();
+
+    void prepareLevel110();
+    void prepareLevel010();
+
+    void prepareLevel100();
+    void prepareLevel000();
 
 public:
     WorldMap();
     const Level &getLevel() const;
     void debugLevel();
+    void changeActiveLevel(int x, int y, int z);
 };
 
 
