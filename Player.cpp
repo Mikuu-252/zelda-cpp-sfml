@@ -15,6 +15,7 @@ void Player::loadTexture() {
 void Player::init() {
     //Player
     playerSpeed = 2;
+    lastMove = 2;
 
     //Animation
     frameNumber = 9;
@@ -48,7 +49,7 @@ void Player::init() {
     sprite.setPosition(256, 192);
 
     sf::FloatRect spriteBounds = sprite.getLocalBounds();
-    sprite.setOrigin(spriteBounds.width / 2, spriteBounds.height / 2);
+    //sprite.setOrigin(spriteBounds.width / 2, spriteBounds.height / 2);
 }
 
 void Player::update() {

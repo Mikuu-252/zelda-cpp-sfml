@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Wall.h"
 #include "WorldMap.h"
+#include "Items/Sword.h"
 
 
 class Game {
@@ -22,7 +23,7 @@ class Game {
     WorldMap worldMap;
     Level activeLevel;
 
-
+    Sword basicSword = Sword("sword1", true, true, 1);
 
     //Func
     void createObjects();
@@ -32,7 +33,7 @@ class Game {
 
     //Collisions
     bool checkCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2);
-    bool checkBorderCollision();
+    bool checkBorderCollision(int x, int y);
     bool anyWallCollision();
     bool checkLevelChange();
 

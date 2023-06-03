@@ -6,6 +6,7 @@
 Game::Game() {
     mainWindow.create(sf::VideoMode(screenWidth, screenHeight), "The copy of Zelda");
     mainWindow.setFramerateLimit(fps);
+
 }
 
 void Game::gameLoop() {
@@ -51,6 +52,9 @@ void Game::createObjects() {
 //Update
 void Game::updateObjects() {
 
+    int x = player.getSprite().getPosition().x;
+    int y = player.getSprite().getPosition().y;
+
     //Change level
     if(checkLevelChange())
     {
@@ -58,11 +62,18 @@ void Game::updateObjects() {
     }
 
     //Wall colision
-    if(checkBorderCollision() || anyWallCollision()) {
+    if(checkBorderCollision(x, y) || anyWallCollision()) {
         player.negativeUpdate();
     } else {
         //Player move
         player.update();
+    }
+
+    //Use item
+    basicSword.hide();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        basicSword.show(x, y, player.getLastMove());
+
     }
 
 }
@@ -77,6 +88,11 @@ void Game::drawObjects() {
     for (Floor floor: activeLevel.floors) {
         floor.draw(mainWindow);
     }
+
+
+    basicSword.draw(mainWindow);
+
+
     player.draw(mainWindow);
 }
 
@@ -104,9 +120,7 @@ bool Game::anyWallCollision() {
     return anyWallCollision;
 }
 
-bool Game::checkBorderCollision() {
-    int x = player.getSprite().getPosition().x;
-    int y = player.getSprite().getPosition().y;
+bool Game::checkBorderCollision(int x, int y) {
 
     if(x < 16 || y < 16 || x > screenWidth-16 || y > screenHeight-16) {
         return true;
