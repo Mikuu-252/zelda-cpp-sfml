@@ -20,6 +20,7 @@ class Game {
     //Game objects
     Player player;
     WorldMap worldMap;
+    Level activeLevel;
 
 
 

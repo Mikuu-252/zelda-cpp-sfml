@@ -98,7 +98,7 @@ void WorldMap::debugLevel() {
 
 const Level &WorldMap::getLevel() const {
     int index = 0;
-    for (Level level: levels) {
+    for (Level level : levels) {
         if(level.levelCoordinate.x == activeLevel.x && level.levelCoordinate.y == activeLevel.y && level.levelCoordinate.z == activeLevel.z) {
             return levels[index];
         }

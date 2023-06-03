@@ -42,7 +42,7 @@ void Game::gameLoop() {
 
 //Create
 void Game::createObjects() {
-
+    activeLevel = worldMap.getLevel();
 }
 
 
@@ -58,25 +58,23 @@ void Game::updateObjects() {
     }
 
     //Wall colision
-    if(anyWallCollision() || checkBorderCollision()) {
+    if(checkBorderCollision() || anyWallCollision()) {
         player.negativeUpdate();
     } else {
         //Player move
         player.update();
     }
 
-
-
 }
 
 //Draw
 void Game::drawObjects() {
 
-    for (Wall wall: worldMap.getLevel().walls) {
+    for (Wall wall: activeLevel.walls) {
         wall.draw(mainWindow);
     }
 
-    for (Floor floor: worldMap.getLevel().floors) {
+    for (Floor floor: activeLevel.floors) {
         floor.draw(mainWindow);
     }
     player.draw(mainWindow);
@@ -93,9 +91,13 @@ bool Game::checkCollision(const sf::Sprite &sprite1, const sf::Sprite &sprite2) 
 bool Game::anyWallCollision() {
     bool anyWallCollision = false;
 
-    for (Wall wall: worldMap.getLevel().walls) {
-        if(Game::checkCollision(player.getSprite(), wall.getSprite())){
+
+    sf::Sprite playerSprite = player.getSprite();
+
+    for (Wall wall : activeLevel.walls) {
+        if(Game::checkCollision(playerSprite , wall.getSprite())){
             anyWallCollision = true;
+            break;
         }
     }
 
@@ -103,7 +105,10 @@ bool Game::anyWallCollision() {
 }
 
 bool Game::checkBorderCollision() {
-    if(player.getSprite().getPosition().x < 16 || player.getSprite().getPosition().y < 16 || player.getSprite().getPosition().x > screenWidth-16 || player.getSprite().getPosition().y > screenHeight-16) {
+    int x = player.getSprite().getPosition().x;
+    int y = player.getSprite().getPosition().y;
+
+    if(x < 16 || y < 16 || x > screenWidth-16 || y > screenHeight-16) {
         return true;
     }
     return false;
@@ -113,21 +118,19 @@ void Game::changeLevel() {
     int lastMove = player.getLastMove();
 
     player.changeLevelPos();
+
     if (lastMove == 1) {
         worldMap.changeActiveLevel(0,-1,0);
-    }
-    if (lastMove == 2) {
+    } else if (lastMove == 2) {
         worldMap.changeActiveLevel(0,1,0);
 
-    }
-    if (lastMove == 3) {
+    } else if (lastMove == 3) {
         worldMap.changeActiveLevel(-1,0,0);
 
-    }
-    if (lastMove == 4) {
+    } else {
         worldMap.changeActiveLevel(1,0,0);
     }
-
+    activeLevel = worldMap.getLevel();
 }
 
 bool Game::checkLevelChange() {
@@ -139,9 +142,7 @@ bool Game::checkLevelChange() {
         return true;
     } else if (y == screenHeight - 32) {
         return true;
-    }
-
-    if ( x == 32) {
+    } else if ( x == 32) {
         return true;
     } else if (x == screenWidth - 32) {
         return true;
