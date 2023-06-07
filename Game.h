@@ -23,12 +23,20 @@ class Game {
     WorldMap worldMap;
     Level activeLevel;
 
-    Sword basicSword = Sword("sword1", true, true, 1);
+    Sword basicSword = Sword("sword1", true, true, 1, true);
+    Sword upgradeSword = Sword("sword2", true, true, 3 , false);
+
 
     //Func
     void createObjects();
+
+
     void updateObjects();
+    void updateSwords(int x, int y);
+
     void drawObjects();
+    void drawSwords();
+
     void changeLevel();
 
     //Collisions

@@ -70,11 +70,7 @@ void Game::updateObjects() {
     }
 
     //Use item
-    basicSword.hide();
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-        basicSword.show(x, y, player.getLastMove());
-
-    }
+    updateSwords(x, y);
 
 }
 
@@ -89,8 +85,7 @@ void Game::drawObjects() {
         floor.draw(mainWindow);
     }
 
-
-    basicSword.draw(mainWindow);
+    drawSwords();
 
 
     player.draw(mainWindow);
@@ -166,6 +161,37 @@ bool Game::checkLevelChange() {
 
 
 
+}
+
+void Game::updateSwords(int x, int y) {
+    if (basicSword.getIsActive()) {
+        basicSword.hide();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            basicSword.show(x, y, player.getLastMove());
+        }
+    }
+
+    if (upgradeSword.getIsActive()) {
+        upgradeSword.hide();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+            upgradeSword.show(x, y, player.getLastMove());
+        }
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::F11)) {
+        upgradeSword.setIsActive(true);
+        basicSword.setIsActive(false);
+    }
+}
+
+void Game::drawSwords() {
+    if(basicSword.getIsActive()) {
+        basicSword.draw(mainWindow);
+    }
+
+    if(upgradeSword.getIsActive()) {
+        upgradeSword.draw(mainWindow);
+    }
 }
 
 
