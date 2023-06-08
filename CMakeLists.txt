@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 add_compile_options(-Wall -Wextra -pedantic -Werror=return-type -Werror=parentheses -Werror=vla -Werror=array-bounds -Wcast-qual -Wmaybe-uninitialized )
 
 IF (WIN32)
-    set(SFML_DIR "E:/SFML-2.5.1/lib/cmake/SFML")
+    set(SFML_DIR "C:/SFML-2.5.1/lib/cmake/SFML")
     set(SFML_STATIC_LIBRARIES TRUE)
 ENDIF()
 

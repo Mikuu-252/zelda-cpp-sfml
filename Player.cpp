@@ -48,7 +48,7 @@ void Player::init() {
     sprite.setTextureRect(animDown[0]);
     sprite.setPosition(256, 192);
 
-    sf::FloatRect spriteBounds = sprite.getLocalBounds();
+//    sf::FloatRect spriteBounds = sprite.getLocalBounds();
     //sprite.setOrigin(spriteBounds.width / 2, spriteBounds.height / 2);
 }
 

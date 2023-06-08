@@ -3,8 +3,8 @@
 #include "Player.h"
 
 
-Game::Game() {
-    mainWindow.create(sf::VideoMode(screenWidth, screenHeight), "The copy of Zelda");
+Game::Game(sf::RenderWindow& window): mainWindow(window) {
+    //mainWindow.create(sf::VideoMode(screenWidth, screenHeight), "The copy of Zelda");
     mainWindow.setFramerateLimit(fps);
 
 }
@@ -48,7 +48,6 @@ void Game::createObjects() {
 
 
 
-
 //Update
 void Game::updateObjects() {
 
@@ -61,7 +60,7 @@ void Game::updateObjects() {
         changeLevel();
     }
 
-    //Wall colision
+    //Wall collision
     if(checkBorderCollision(x, y) || anyWallCollision()) {
         player.negativeUpdate();
     } else {
@@ -77,12 +76,12 @@ void Game::updateObjects() {
 //Draw
 void Game::drawObjects() {
 
-    for (Wall wall: activeLevel.walls) {
-        wall.draw(mainWindow);
+    for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
+        activeLevel.walls[idx].draw(mainWindow);
     }
 
-    for (Floor floor: activeLevel.floors) {
-        floor.draw(mainWindow);
+    for (size_t idx=0; idx<activeLevel.floors.size(); idx++) {
+        activeLevel.floors[idx].draw(mainWindow);
     }
 
     drawSwords();
@@ -105,8 +104,8 @@ bool Game::anyWallCollision() {
 
     sf::Sprite playerSprite = player.getSprite();
 
-    for (Wall wall : activeLevel.walls) {
-        if(Game::checkCollision(playerSprite , wall.getSprite())){
+    for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
+        if(Game::checkCollision(playerSprite , activeLevel.walls[idx].getSprite())){
             anyWallCollision = true;
             break;
         }
@@ -139,6 +138,7 @@ void Game::changeLevel() {
     } else {
         worldMap.changeActiveLevel(1,0,0);
     }
+
     activeLevel = worldMap.getLevel();
 }
 
@@ -159,11 +159,10 @@ bool Game::checkLevelChange() {
 
     return false;
 
-
-
 }
 
 void Game::updateSwords(int x, int y) {
+
     if (basicSword.getIsActive()) {
         basicSword.hide();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {

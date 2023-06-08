@@ -2,8 +2,11 @@
 #include "Game.h"
 
 int main() {
+    int screenWidth = 384;
+    int screenHeight = 320;
 
-    Game game;
+    sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), "The copy of Zelda");
+    Game game(window);
     game.gameLoop();
 
     return 0;

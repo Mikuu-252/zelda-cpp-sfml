@@ -15,7 +15,7 @@ class Game {
     int fps = 240;
     enum class GameState{Pause, Play, Menu};
     GameState gameState;
-    sf::RenderWindow mainWindow;
+    sf::RenderWindow &mainWindow;
 
 
     //Game objects
@@ -47,7 +47,7 @@ class Game {
 
 
 public:
-    Game();
+    Game(sf::RenderWindow& window);
     void gameLoop();
 };
 
