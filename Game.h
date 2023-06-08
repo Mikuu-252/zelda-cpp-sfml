@@ -7,6 +7,7 @@
 #include "Wall.h"
 #include "WorldMap.h"
 #include "Items/Sword.h"
+#include "Ui.h"
 
 
 class Game {
@@ -20,8 +21,10 @@ class Game {
 
     //Game objects
     Player player;
+    Ui ui;
     WorldMap worldMap;
     Level activeLevel;
+
 
     Sword basicSword = Sword("sword1", true, true, 1, true);
     Sword upgradeSword = Sword("sword2", true, true, 3 , false);

@@ -20,7 +20,6 @@ W projekcie chciałbym zamieścić:
 <ul>
 <li>Link sprite - https://www.spriters-resource.com/custom_edited/thelegendofzeldacustoms/sheet/17402/</li>
 <li>Shy Guy - https://www.spriters-resource.com/custom_edited/thelegendofzeldacustoms/sheet/151024/</li>
-<li>Goblin - https://opengameart.org/content/lpc-goblin</li>
 <li>Rupees - https://www.spriters-resource.com/custom_edited/thelegendofzeldacustoms/sheet/17479/</li>
 <li>Items - https://www.spriters-resource.com/custom_edited/thelegendofzeldacustoms/sheet/60633/</li>
 </ul>

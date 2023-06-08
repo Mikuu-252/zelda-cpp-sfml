@@ -25,6 +25,17 @@ private:
     int animSpeed;
     sf::Clock clock;
 
+    //Stats
+    int money;
+    int hp;
+public:
+    int getMaxHp() const;
+
+    void setMaxHp(int maxHp);
+
+private:
+    int maxHp;
+
     //Func
     void loadTexture();
 
@@ -49,6 +60,14 @@ public:
     void negativeUpdate();
     void update();
     void changeLevelPos();
+
+    int getMoney() const;
+
+    void setMoney(int money);
+
+    int getHp() const;
+
+    void setHp(int hp);
 
 };
 

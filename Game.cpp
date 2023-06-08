@@ -3,7 +3,7 @@
 #include "Player.h"
 
 
-Game::Game(sf::RenderWindow& window): mainWindow(window) {
+Game::Game(sf::RenderWindow& window): mainWindow(window), ui(6, 5) {
     //mainWindow.create(sf::VideoMode(screenWidth, screenHeight), "The copy of Zelda");
     mainWindow.setFramerateLimit(fps);
 
@@ -55,9 +55,6 @@ void Game::updateObjects() {
     int x = player.getSprite().getPosition().x;
     int y = player.getSprite().getPosition().y;
 
-    std::cout << "x: " << x << "\n";
-    std::cout << "y: " << y << "\n";
-
     //Change level
     if(checkLevelChange())
     {
@@ -86,6 +83,9 @@ void Game::updateObjects() {
     //Use item
     updateSwords(x, y);
 
+    //Update ui
+    ui.update(player.getMaxHp(), player.getHp(), player.getMoney());
+
 }
 
 //Draw
@@ -95,9 +95,9 @@ void Game::drawObjects() {
         activeLevel.walls[idx].draw(mainWindow);
     }
 
-    for (size_t idx=0; idx<activeLevel.floors.size(); idx++) {
+/*    for (size_t idx=0; idx<activeLevel.floors.size(); idx++) {
         activeLevel.floors[idx].draw(mainWindow);
-    }
+    }*/
 
     activeLevel.teleport.draw(mainWindow);
 
@@ -105,6 +105,7 @@ void Game::drawObjects() {
 
 
     player.draw(mainWindow);
+    ui.draw(mainWindow);
 }
 
 

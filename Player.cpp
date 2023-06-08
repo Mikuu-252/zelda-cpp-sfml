@@ -16,6 +16,9 @@ void Player::init() {
     //Player
     playerSpeed = 2;
     lastMove = 2;
+    money = 5;
+    maxHp = 6;
+    hp = 6;
 
     //Animation
     frameNumber = 9;
@@ -48,8 +51,22 @@ void Player::init() {
     sprite.setTextureRect(animDown[0]);
     sprite.setPosition(256, 192);
 
-//    sf::FloatRect spriteBounds = sprite.getLocalBounds();
-    //sprite.setOrigin(spriteBounds.width / 2, spriteBounds.height / 2);
+}
+
+int Player::getMoney() const {
+    return money;
+}
+
+void Player::setMoney(int money) {
+    Player::money = money;
+}
+
+int Player::getHp() const {
+    return hp;
+}
+
+void Player::setHp(int hp) {
+    Player::hp = hp;
 }
 
 void Player::update() {
@@ -152,4 +169,12 @@ void Player::changeLevelPos() {
 
 void Player::setPosition(int x, int y) {
     sprite.setPosition(x, y);
+}
+
+int Player::getMaxHp() const {
+    return maxHp;
+}
+
+void Player::setMaxHp(int maxHp) {
+    Player::maxHp = maxHp;
 }
