@@ -140,7 +140,7 @@ void Player::changeLevelPos() {
         sprite.setPosition(x, 320-34);
     }
     if (lastMove == 2) {
-        sprite.setPosition(x, 98);
+        sprite.setPosition(x, 78);
     }
     if (lastMove == 3) {
         sprite.setPosition(384-34, y);;
@@ -150,3 +150,6 @@ void Player::changeLevelPos() {
     }
 }
 
+void Player::setPosition(int x, int y) {
+    sprite.setPosition(x, y);
+}

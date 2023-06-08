@@ -4,6 +4,7 @@
 #include <vector>
 #include "Wall.h"
 #include "Floor.h"
+#include "Teleport.h"
 
 struct LevelCoordinate {
     int x;
@@ -14,7 +15,7 @@ struct Level{
     LevelCoordinate levelCoordinate;
     std::vector<Wall> walls;
     std::vector<Floor> floors;
-
+    Teleport teleport;
 };
 
 
@@ -29,6 +30,7 @@ class WorldMap {
 
     void prepareLevel130();
     void prepareLevel030();
+    void prepareLevel03m1();
 
     void prepareLevel120();
     void prepareLevel020();

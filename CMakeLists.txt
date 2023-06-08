@@ -6,12 +6,12 @@ set(CMAKE_CXX_STANDARD 14)
 add_compile_options(-Wall -Wextra -pedantic -Werror=return-type -Werror=parentheses -Werror=vla -Werror=array-bounds -Wcast-qual -Wmaybe-uninitialized )
 
 IF (WIN32)
-    set(SFML_DIR "C:/SFML-2.5.1/lib/cmake/SFML")
+    set(SFML_DIR "E:/SFML-2.5.1/lib/cmake/SFML")
     set(SFML_STATIC_LIBRARIES TRUE)
 ENDIF()
 
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 
 
-add_executable(zelda main.cpp Game.cpp Game.h Player.cpp Player.h Wall.cpp Wall.h WorldMap.cpp WorldMap.h Floor.cpp Floor.h Items/Item.cpp Items/Item.h Items/Sword.cpp Items/Sword.h)
+add_executable(zelda main.cpp Game.cpp Game.h Player.cpp Player.h Wall.cpp Wall.h WorldMap.cpp WorldMap.h Floor.cpp Floor.h Items/Item.cpp Items/Item.h Items/Sword.cpp Items/Sword.h Teleport.h Teleport.cpp)
 target_link_libraries(zelda sfml-graphics)

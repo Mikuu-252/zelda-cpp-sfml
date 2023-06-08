@@ -17,6 +17,7 @@ void WorldMap::init() {
 
     prepareLevel130();
     prepareLevel030();
+    prepareLevel03m1();
 
     prepareLevel120();
     prepareLevel020();
@@ -28,6 +29,34 @@ void WorldMap::init() {
     prepareLevel000();
 }
 
+
+void WorldMap::debugLevel() {
+    activeLevel.x=-1;
+    activeLevel.y=-1;
+    activeLevel.z=-1;
+}
+
+const Level &WorldMap::getLevel() const {
+    for (size_t idx=0; idx<levels.size(); idx++)
+    {
+        if(levels[idx].levelCoordinate.x == activeLevel.x
+        && levels[idx].levelCoordinate.y == activeLevel.y
+        && levels[idx].levelCoordinate.z == activeLevel.z)
+        {
+            return levels[idx];
+        }
+    }
+    return levels[1];
+}
+
+void WorldMap::changeActiveLevel(int x, int y, int z) {
+    activeLevel.x += x;
+    activeLevel.y += y;
+    activeLevel.z += z;
+}
+
+
+//Level prepare
 void WorldMap::prepareLevel0() {
     Level level;
 
@@ -63,7 +92,7 @@ void WorldMap::prepareLevel130() {
     level.walls.push_back(Wall(0,8,32,"wall12x2"));
     level.walls.push_back(Wall(10,2,32,"wall2x6"));
     level.walls.push_back(Wall(0,2,32,"wall4x3"));
-    level.walls.push_back(Wall(4,2,32,"wall1x3"));  //Door
+    //level.teleport = Teleport(4,2,32,"wall1x3");
     level.walls.push_back(Wall(5,2,32,"wall1x3"));
 
     levels.push_back(level);
@@ -83,37 +112,32 @@ void WorldMap::prepareLevel030() {
 
     //shop
     level.walls.push_back(Wall(2,2,32,"shop2x3-left"));
-    level.walls.push_back(Wall(4,2,32,"shop2x3-center")); //doors
+    level.teleport = Teleport(4,2,32,"shop2x3-center", 'D', 180,242);
     level.walls.push_back(Wall(6,2,32,"shop2x3-right"));
 
 
     levels.push_back(level);
 }
 
-void WorldMap::debugLevel() {
-    activeLevel.x=-1;
-    activeLevel.y=-1;
-    activeLevel.z=-1;
+void WorldMap::prepareLevel03m1() {
+    Level level;
+
+    // Coordinate
+    level.levelCoordinate.x=0;
+    level.levelCoordinate.y=3;
+    level.levelCoordinate.z=-1;
+
+    level.walls.push_back(Wall(0,2,32,"shop-wall-top"));
+    level.walls.push_back(Wall(0,4,32,"shop-wall"));
+    level.walls.push_back(Wall(10,4,32,"shop-wall"));
+    level.walls.push_back(Wall(2,8,32,"shop-wall-bottom"));
+    level.teleport = Teleport(4,9,32,"shop-tp", 'U', 142,164);
+    level.walls.push_back(Wall(8,8,32,"shop-wall-bottom"));
+
+
+    levels.push_back(level);
 }
 
-const Level &WorldMap::getLevel() const {
-    for (size_t idx=0; idx<levels.size(); idx++)
-    {
-        if(levels[idx].levelCoordinate.x == activeLevel.x
-        && levels[idx].levelCoordinate.y == activeLevel.y
-        && levels[idx].levelCoordinate.z == activeLevel.z)
-        {
-            return levels[idx];
-        }
-    }
-    return levels[1];
-}
-
-void WorldMap::changeActiveLevel(int x, int y, int z) {
-    activeLevel.x += x;
-    activeLevel.y += y;
-    activeLevel.z += z;
-}
 
 void WorldMap::prepareLevel120() {
     Level level;
@@ -165,7 +189,7 @@ void WorldMap::prepareLevel110() {
 
     //Walls
     level.walls.push_back(Wall(0,2,32,"wall3x3"));
-    //level.walls.push_back(Wall(4,2,32,"wall1x3")); //door
+    //level.teleport = Teleport(4,2,32,"wall1x3"); //door
     level.walls.push_back(Wall(5,2,32,"wall1x3"));
 
     level.walls.push_back(Wall(10,2,32,"wall2x8"));
@@ -188,7 +212,7 @@ void WorldMap::prepareLevel010() {
     //Walls
     level.walls.push_back(Wall(0,2,32,"wall2x8"));
     level.walls.push_back(Wall(2,2,32,"wall3x3"));
-    //level.walls.push_back(Wall(5,2,32,"wall1x3")); //door
+    //level.teleport = Teleport(5,2,32,"wall1x3"); //door
     level.walls.push_back(Wall(6,2,32,"wall1x3"));
 
     level.walls.push_back(Wall(10,2,32,"wall2x3"));
@@ -235,7 +259,7 @@ void WorldMap::prepareLevel000() {
 
     //Dung
     level.walls.push_back(Wall(3,4,32,"dung2x3-left"));
-    level.walls.push_back(Wall(5,4,32,"dung2x3-center-closed")); //doors
+    level.teleport = Teleport(5,4,32,"dung2x3-center-closed", 'D', 180,262); //doors
     level.walls.push_back(Wall(7,4,32,"dung2x3-right"));
 
 

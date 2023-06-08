@@ -42,10 +42,14 @@ public:
     const sf::Sprite &getSprite() const;
     int getLastMove() const;
 
+    //Setter
+    void setPosition(int x, int y);
+
     //Update
     void negativeUpdate();
     void update();
     void changeLevelPos();
+
 };
 
 

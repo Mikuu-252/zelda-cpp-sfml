@@ -25,6 +25,7 @@ void Game::gameLoop() {
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::F12)) {
                 worldMap.debugLevel();
+                activeLevel = worldMap.getLevel();
             }
         }
 
@@ -54,6 +55,9 @@ void Game::updateObjects() {
     int x = player.getSprite().getPosition().x;
     int y = player.getSprite().getPosition().y;
 
+    std::cout << "x: " << x << "\n";
+    std::cout << "y: " << y << "\n";
+
     //Change level
     if(checkLevelChange())
     {
@@ -66,6 +70,17 @@ void Game::updateObjects() {
     } else {
         //Player move
         player.update();
+    }
+
+    //Teleport collision
+    if(checkCollision(player.getSprite(),activeLevel.teleport.getSprite())) {
+        if(activeLevel.teleport.getDirection() == 'D') {
+            worldMap.changeActiveLevel(0,0,-1);
+        } else {
+            worldMap.changeActiveLevel(0,0,1);
+        }
+        player.setPosition(activeLevel.teleport.getTpX(), activeLevel.teleport.getTpY());
+        activeLevel = worldMap.getLevel();
     }
 
     //Use item
@@ -83,6 +98,8 @@ void Game::drawObjects() {
     for (size_t idx=0; idx<activeLevel.floors.size(); idx++) {
         activeLevel.floors[idx].draw(mainWindow);
     }
+
+    activeLevel.teleport.draw(mainWindow);
 
     drawSwords();
 
@@ -147,7 +164,7 @@ bool Game::checkLevelChange() {
     int y = player.getSprite().getPosition().y;
 
 
-    if (y == 96) {
+    if (y == 70) {
         return true;
     } else if (y == screenHeight - 32) {
         return true;
