@@ -2,9 +2,11 @@
 #define PO23_SR17_252241_WORLDMAP_H
 
 #include <vector>
+#include <memory>
 #include "Wall.h"
 #include "Floor.h"
 #include "Teleport.h"
+#include "Items/Item.h"
 
 struct LevelCoordinate {
     int x;
@@ -13,9 +15,12 @@ struct LevelCoordinate {
 };
 struct Level{
     LevelCoordinate levelCoordinate;
-    std::vector<Wall> walls;
-    std::vector<Floor> floors;
+    //std::vector<Wall> walls;
+    //std::vector<Floor> floors;
     Teleport teleport;
+    std::vector<std::shared_ptr<Wall>> walls;
+    std::vector<std::shared_ptr<Floor>> floors;
+    std::vector<std::shared_ptr<Item>> pickUps;
 };
 
 
@@ -26,7 +31,7 @@ class WorldMap {
 
 
     //Level func
-    void prepareLevel0();
+    void prepareLevelDebug();
 
     void prepareLevel130();
     void prepareLevel030();
@@ -40,6 +45,7 @@ class WorldMap {
 
     void prepareLevel100();
     void prepareLevel000();
+    void prepareLevel00m1();
 
 public:
     WorldMap();

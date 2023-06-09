@@ -13,5 +13,5 @@ ENDIF()
 find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
 
 
-add_executable(zelda main.cpp Game.cpp Game.h Player.cpp Player.h Wall.cpp Wall.h WorldMap.cpp WorldMap.h Floor.cpp Floor.h Items/Item.cpp Items/Item.h Items/Sword.cpp Items/Sword.h Teleport.h Teleport.cpp Ui.cpp Ui.h)
+add_executable(zelda main.cpp Game.cpp Game.h Player.cpp Player.h Wall.cpp Wall.h WorldMap.cpp WorldMap.h Floor.cpp Floor.h Items/Item.cpp Items/Item.h Items/Sword.cpp Items/Sword.h Teleport.h Teleport.cpp Ui.cpp Ui.h Items/Ruppes.cpp Items/Ruppes.h)
 target_link_libraries(zelda sfml-graphics)

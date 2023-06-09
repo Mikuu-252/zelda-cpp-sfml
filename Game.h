@@ -26,8 +26,8 @@ class Game {
     Level activeLevel;
 
 
-    Sword basicSword = Sword("sword1", true, true, 1, true);
-    Sword upgradeSword = Sword("sword2", true, true, 3 , false);
+    Sword basicSword = Sword("sword1", true, true, 'S', 1, true);
+    Sword upgradeSword = Sword("sword2", true, true, 'S', 3 , false);
 
 
     //Func
@@ -36,6 +36,7 @@ class Game {
 
     void updateObjects();
     void updateSwords(int x, int y);
+    void pickUpItems(int x, int y);
 
     void drawObjects();
     void drawSwords();

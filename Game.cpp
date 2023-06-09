@@ -18,6 +18,7 @@ void Game::gameLoop() {
     while (mainWindow.isOpen()) {
         sf::Time elapsedTime = clock.restart();
         sf::Event event;
+
         while (mainWindow.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 mainWindow.close();
@@ -55,6 +56,7 @@ void Game::updateObjects() {
     int x = player.getSprite().getPosition().x;
     int y = player.getSprite().getPosition().y;
 
+
     //Change level
     if(checkLevelChange())
     {
@@ -80,6 +82,9 @@ void Game::updateObjects() {
         activeLevel = worldMap.getLevel();
     }
 
+    //Pick items
+    pickUpItems(x, y);
+
     //Use item
     updateSwords(x, y);
 
@@ -92,17 +97,20 @@ void Game::updateObjects() {
 void Game::drawObjects() {
 
     for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
-        activeLevel.walls[idx].draw(mainWindow);
+        activeLevel.walls[idx]->draw(mainWindow);
     }
 
-/*    for (size_t idx=0; idx<activeLevel.floors.size(); idx++) {
-        activeLevel.floors[idx].draw(mainWindow);
-    }*/
+    for (size_t idx=0; idx<activeLevel.floors.size(); idx++) {
+        activeLevel.floors[idx]->draw(mainWindow);
+    }
 
     activeLevel.teleport.draw(mainWindow);
 
     drawSwords();
 
+    for (size_t idx=0; idx<activeLevel.pickUps.size(); idx++) {
+        activeLevel.pickUps[idx]->draw(mainWindow);
+    }
 
     player.draw(mainWindow);
     ui.draw(mainWindow);
@@ -123,7 +131,7 @@ bool Game::anyWallCollision() {
     sf::Sprite playerSprite = player.getSprite();
 
     for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
-        if(Game::checkCollision(playerSprite , activeLevel.walls[idx].getSprite())){
+        if(Game::checkCollision(playerSprite , activeLevel.walls[idx]->getSprite())){
             anyWallCollision = true;
             break;
         }
@@ -208,6 +216,21 @@ void Game::drawSwords() {
 
     if(upgradeSword.getIsActive()) {
         upgradeSword.draw(mainWindow);
+    }
+}
+
+void Game::pickUpItems(int x, int y) {
+    for (size_t idx=0; idx<activeLevel.pickUps.size(); idx++) {
+        if(activeLevel.pickUps[idx]->isPickable()) {
+            if(checkCollision(activeLevel.pickUps[idx]->getSprite(), player.getSprite())) {
+                if (activeLevel.pickUps[idx]->getTag() == 'R') {
+                    player.setMoney(player.getMoney() + activeLevel.pickUps[idx]->pickUp());
+                    activeLevel.pickUps.erase(activeLevel.pickUps.begin() + idx);
+                }
+
+
+            }
+        }
     }
 }
 

@@ -2,8 +2,8 @@
 #include <iostream>
 #include "Sword.h"
 
-Sword::Sword(const std::string& filename, bool isPickable, bool isUsable, int dmg, bool isActive)
-        : Item(filename, isPickable, isUsable), damage(dmg), isActive(isActive) {
+Sword::Sword(const std::string& filename, bool isPickable, bool isUsable, char tag, int dmg, bool isActive)
+        : Item(filename, isPickable, isUsable, tag), damage(dmg), isActive(isActive) {
     hide();
 }
 
@@ -22,9 +22,6 @@ void Sword::show(int playerX, int playerY, int lastMove) {
         sprite.setPosition(playerX+40, playerY+10);
         sprite.setRotation(90);
     }
-
-    std::cout << " Sword x: " << sprite.getPosition().x << "\n";
-    std::cout << " Sword y: " << sprite.getPosition().y << "\n";
 
 }
 
