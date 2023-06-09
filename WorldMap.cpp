@@ -84,7 +84,7 @@ void WorldMap::prepareLevel130() {
     level.levelCoordinate.z=0;
 
     //Floor
-    for (int x = 6; x < 10; ++x) {
+/*    for (int x = 6; x < 10; ++x) {
         for (int y = 2; y < 5; ++y) {
             //level.floors.push_back(Floor(x,y,32,"grass"));
             level.floors.push_back(std::make_shared<Floor>(x,y,32,"grass"));
@@ -96,13 +96,16 @@ void WorldMap::prepareLevel130() {
             //level.floors.push_back(Floor(x,y,32,"grass"));
             level.floors.push_back(std::make_shared<Floor>(x,y,32,"grass"));
         }
-    }
+    }*/
+
+    level.floors.push_back(std::make_shared<Floor>(0,2,32,"grass"));
 
     //Walls
     level.walls.push_back(std::make_shared<Wall>(0,8,32,"wall12x2"));
     level.walls.push_back(std::make_shared<Wall>(10,2,32,"wall2x6"));
     level.walls.push_back(std::make_shared<Wall>(0,2,32,"wall4x3"));
     //level.teleport = Teleport(4,2,32,"wall1x3");
+    level.walls.push_back(std::make_shared<Wall>(4,2,32,"wall1x3"));
     level.walls.push_back(std::make_shared<Wall>(5,2,32,"wall1x3"));
 
     levels.push_back(level);
@@ -116,11 +119,15 @@ void WorldMap::prepareLevel030() {
     level.levelCoordinate.y=3;
     level.levelCoordinate.z=0;
 
+    //Floor
+    level.floors.push_back(std::make_shared<Floor>(0,2,32,"grass"));
+
+    //Walls
     level.walls.push_back(std::make_shared<Wall>(0,8,32,"wall12x2"));
     level.walls.push_back(std::make_shared<Wall>(11,2,32,"wall1x3"));
     level.walls.push_back(std::make_shared<Wall>(0,2,32,"wall2x6"));
 
-    //shop
+    //Shop
     level.walls.push_back(std::make_shared<Wall>(2,2,32,"shop2x3-left"));
     level.teleport = Teleport(4,2,32,"shop2x3-center", 'D', 180,242);
     level.walls.push_back(std::make_shared<Wall>(6,2,32,"shop2x3-right"));
@@ -137,6 +144,9 @@ void WorldMap::prepareLevel03m1() {
     level.levelCoordinate.y=3;
     level.levelCoordinate.z=-1;
 
+    //Floor
+
+    //Walls
     level.walls.push_back(std::make_shared<Wall>(0,2,32,"shop-wall-top"));
     level.walls.push_back(std::make_shared<Wall>(0,4,32,"shop-wall"));
     level.walls.push_back(std::make_shared<Wall>(10,4,32,"shop-wall"));
@@ -158,6 +168,7 @@ void WorldMap::prepareLevel120() {
     level.levelCoordinate.z=0;
 
     //Floor
+    level.floors.push_back(std::make_shared<Floor>(0,2,32,"grass"));
 
     //Walls
     level.walls.push_back(std::make_shared<Wall>(0,2,32,"wall2x2"));
@@ -176,6 +187,7 @@ void WorldMap::prepareLevel020() {
     level.levelCoordinate.z=0;
 
     //Floor
+    level.floors.push_back(std::make_shared<Floor>(0,2,32,"grass"));
 
     //Walls
     level.walls.push_back(std::make_shared<Wall>(10,2,32,"wall2x2"));
@@ -196,11 +208,13 @@ void WorldMap::prepareLevel110() {
     level.levelCoordinate.z=0;
 
     //Floor
+    level.floors.push_back(std::make_shared<Floor>(0,2,32,"grass"));
 
     //Walls
     level.walls.push_back(std::make_shared<Wall>(0,2,32,"wall3x3"));
     //level.teleport = Teleport(4,2,32,"wall1x3"); //door
-    level.walls.push_back(std::make_shared<Wall>(5,2,32,"wall1x3"));
+    level.walls.push_back(std::make_shared<Wall>(3,2,32,"wall1x3"));
+    level.walls.push_back(std::make_shared<Wall>(4,2,32,"wall1x3"));
 
     level.walls.push_back(std::make_shared<Wall>(10,2,32,"wall2x8"));
     level.walls.push_back(std::make_shared<Wall>(0,8,32,"wall2x2"));
@@ -218,11 +232,13 @@ void WorldMap::prepareLevel010() {
     level.levelCoordinate.z=0;
 
     //Floor
+    level.floors.push_back(std::make_shared<Floor>(0,2,32,"grass"));
 
     //Walls
     level.walls.push_back(std::make_shared<Wall>(0,2,32,"wall2x8"));
     level.walls.push_back(std::make_shared<Wall>(2,2,32,"wall3x3"));
     //level.teleport = Teleport(5,2,32,"wall1x3"); //door
+    level.walls.push_back(std::make_shared<Wall>(5,2,32,"wall1x3"));
     level.walls.push_back(std::make_shared<Wall>(6,2,32,"wall1x3"));
 
     level.walls.push_back(std::make_shared<Wall>(10,2,32,"wall2x3"));
@@ -241,6 +257,7 @@ void WorldMap::prepareLevel100() {
     level.levelCoordinate.z=0;
 
     //Floor
+    level.floors.push_back(std::make_shared<Floor>(0,2,32,"grass"));
 
     //Walls
     level.walls.push_back(std::make_shared<Wall>(0,2,32,"wall12x2"));
@@ -260,6 +277,7 @@ void WorldMap::prepareLevel000() {
     level.levelCoordinate.z=0;
 
     //Floor
+    level.floors.push_back(std::make_shared<Floor>(0,2,32,"grass"));
 
     //Walls
     level.walls.push_back(std::make_shared<Wall>(0,2,32,"wall12x2"));

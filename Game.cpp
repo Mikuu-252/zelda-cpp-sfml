@@ -96,12 +96,13 @@ void Game::updateObjects() {
 //Draw
 void Game::drawObjects() {
 
-    for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
-        activeLevel.walls[idx]->draw(mainWindow);
-    }
 
     for (size_t idx=0; idx<activeLevel.floors.size(); idx++) {
         activeLevel.floors[idx]->draw(mainWindow);
+    }
+
+    for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
+        activeLevel.walls[idx]->draw(mainWindow);
     }
 
     activeLevel.teleport.draw(mainWindow);
