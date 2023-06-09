@@ -13,7 +13,7 @@ class Ruppes : public Item {
     int y;
 
 public:
-    Ruppes(const std::string &filename, bool isPickable, bool isUsable, char tag, int value, int x, int y);
+    Ruppes(const std::string &filename, bool isPickable, bool isUsable, std::string tag, int value, int x, int y);
     void draw(sf::RenderWindow &window);
     int pickUp() const;
 };

@@ -224,11 +224,18 @@ void Game::pickUpItems(int x, int y) {
     for (size_t idx=0; idx<activeLevel.pickUps.size(); idx++) {
         if(activeLevel.pickUps[idx]->isPickable()) {
             if(checkCollision(activeLevel.pickUps[idx]->getSprite(), player.getSprite())) {
-                if (activeLevel.pickUps[idx]->getTag() == 'R') {
+                if (activeLevel.pickUps[idx]->getTag() == "Rupees") {
                     player.setMoney(player.getMoney() + activeLevel.pickUps[idx]->pickUp());
                     activeLevel.pickUps.erase(activeLevel.pickUps.begin() + idx);
+                } else if (activeLevel.pickUps[idx]->getTag() == "Heal") {
+                    if(!(player.getHp() >= player.getMaxHp())) {
+                        player.setHp(player.getHp() + activeLevel.pickUps[idx]->pickUp());
+                        activeLevel.pickUps.erase(activeLevel.pickUps.begin() + idx);
+                    }
+                } else if (activeLevel.pickUps[idx]->getTag() == "MaxHeart") {
+                    player.setMaxHp(player.getMaxHp() + activeLevel.pickUps[idx]->pickUp());
+                    activeLevel.pickUps.erase(activeLevel.pickUps.begin() + idx);
                 }
-
 
             }
         }

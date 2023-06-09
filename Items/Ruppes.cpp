@@ -3,7 +3,7 @@
 #include <iostream>
 #include "Ruppes.h"
 
-Ruppes::Ruppes(const std::string &filename, bool isPickable, bool isUsable, char tag, int value, int x, int y)
+Ruppes::Ruppes(const std::string &filename, bool isPickable, bool isUsable, std::string tag, int value, int x, int y)
     : Item(filename, isPickable, isUsable, tag), value(value), x(x), y(y) {
     sprite.setPosition(x, y);
 }

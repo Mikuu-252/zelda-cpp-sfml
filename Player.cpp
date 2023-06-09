@@ -18,7 +18,7 @@ void Player::init() {
     lastMove = 2;
     money = 5;
     maxHp = 6;
-    hp = 6;
+    hp = 3;
 
     //Animation
     frameNumber = 9;

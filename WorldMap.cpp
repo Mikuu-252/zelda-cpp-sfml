@@ -2,6 +2,8 @@
 
 #include "WorldMap.h"
 #include "Items/Ruppes.h"
+#include "Items/HealHeart.h"
+#include "Items/MaxHeart.h"
 
 WorldMap::WorldMap() {
     init();
@@ -48,7 +50,7 @@ const Level &WorldMap::getLevel() const {
             return levels[idx];
         }
     }
-    return levels[1];
+    return levels[0];
 }
 
 void WorldMap::changeActiveLevel(int x, int y, int z) {
@@ -66,10 +68,14 @@ void WorldMap::prepareLevelDebug() {
     level.levelCoordinate.y=-1;
     level.levelCoordinate.z=-1;
 
-    level.pickUps.push_back(std::make_shared<Ruppes>("g-rupees", true, false,'R', 1, 100, 100));
-    level.pickUps.push_back(std::make_shared<Ruppes>("b-rupees", true, false, 'R', 3, 150, 100));
-    level.pickUps.push_back(std::make_shared<Ruppes>("r-rupees", true, false, 'R', 5, 200, 100));
+    level.pickUps.push_back(std::make_shared<Ruppes>("g-rupees", true, false,"Rupees", 1, 100, 100));
+    level.pickUps.push_back(std::make_shared<Ruppes>("b-rupees", true, false, "Rupees", 3, 150, 100));
+    level.pickUps.push_back(std::make_shared<Ruppes>("r-rupees", true, false, "Rupees", 5, 200, 100));
 
+    level.pickUps.push_back(std::make_shared<HealHeart>("heal", true, false, "Heal", 2, 100, 150));
+    level.pickUps.push_back(std::make_shared<HealHeart>("halfheal", true, false, "Heal", 1, 200, 150));
+
+    level.pickUps.push_back(std::make_shared<MaxHeart>("heartup", true, false, "MaxHeart", 2, 100, 200));
 
 
     levels.push_back(level);

@@ -26,8 +26,8 @@ class Game {
     Level activeLevel;
 
 
-    Sword basicSword = Sword("sword1", true, true, 'S', 1, true);
-    Sword upgradeSword = Sword("sword2", true, true, 'S', 3 , false);
+    Sword basicSword = Sword("sword1", true, true, "S", 1, true);
+    Sword upgradeSword = Sword("sword2", true, true, "S", 3 , false);
 
 
     //Func

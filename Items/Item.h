@@ -13,14 +13,14 @@ protected:
 
     bool pickable;
     bool usable;
-    char tag;
+    std::string tag;
 
 public:
     bool isPickable() const;
     bool isUsable() const;
 
 public:
-    Item(const std::string& filename, bool pickable, bool usable, char tag);
+    Item(const std::string& filename, bool pickable, bool usable, std::string tag);
     virtual ~Item();
 
     const sf::Sprite &getSprite() const;
@@ -28,7 +28,7 @@ public:
     virtual void draw(sf::RenderWindow& window);
     virtual int pickUp() const;
 
-    char getTag() const;
+    std::string getTag() const;
 };
 
 

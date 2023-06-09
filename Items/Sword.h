@@ -11,7 +11,7 @@ private:
     bool isActive;
 
 public:
-    Sword(const std::string& filename, bool isPickable, bool isUsable, char tag, int dmg, bool isActive);
+    Sword(const std::string& filename, bool isPickable, bool isUsable, std::string tag, int dmg, bool isActive);
 
     void show(int playerX, int playerY, int lastMove);
     void hide();

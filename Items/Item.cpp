@@ -2,7 +2,7 @@
 #include "Item.h"
 
 
-Item::Item(const std::string& filename, bool pickable, bool usable, char tag) : filename(filename), pickable(pickable), usable(usable), tag(tag) {
+Item::Item(const std::string& filename, bool pickable, bool usable, std::string tag) : filename(filename), pickable(pickable), usable(usable), tag(tag) {
     loadTexture();
 }
 
@@ -17,7 +17,7 @@ void Item::loadTexture() {
     sprite.setTexture(texture);
 }
 
-char Item::getTag() const {
+std::string Item::getTag() const {
     return tag;
 }
 

@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Sword.h"
 
-Sword::Sword(const std::string& filename, bool isPickable, bool isUsable, char tag, int dmg, bool isActive)
+Sword::Sword(const std::string& filename, bool isPickable, bool isUsable, std::string tag, int dmg, bool isActive)
         : Item(filename, isPickable, isUsable, tag), damage(dmg), isActive(isActive) {
     hide();
 }
