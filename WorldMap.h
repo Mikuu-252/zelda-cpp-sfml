@@ -49,7 +49,7 @@ class WorldMap {
 
 public:
     WorldMap();
-    const Level &getLevel() const;
+    Level &getLevel();
     void debugLevel();
     void changeActiveLevel(int x, int y, int z);
 };

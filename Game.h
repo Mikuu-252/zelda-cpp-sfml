@@ -26,8 +26,8 @@ class Game {
     Level activeLevel;
 
 
-    Sword basicSword = Sword("sword1", true, true, "S", 1, true);
-    Sword upgradeSword = Sword("sword2", true, true, "S", 3 , false);
+    Sword basicSword = Sword("sword1", true, true, false, "basicSword",-100,-100,0 , 1, true);
+    Sword upgradeSword = Sword("sword2", false, true,true, "upgradeSword",-100,-100, 15, 3 , false);
 
 
     //Func
@@ -51,7 +51,7 @@ class Game {
 
 
 public:
-    Game(sf::RenderWindow& window);
+    Game(sf::RenderWindow &window);
     void gameLoop();
 };
 

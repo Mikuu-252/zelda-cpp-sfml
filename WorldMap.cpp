@@ -40,7 +40,7 @@ void WorldMap::debugLevel() {
     activeLevel.z=-1;
 }
 
-const Level &WorldMap::getLevel() const {
+Level &WorldMap::getLevel() {
     for (size_t idx=0; idx<levels.size(); idx++)
     {
         if(levels[idx].levelCoordinate.x == activeLevel.x
@@ -68,14 +68,14 @@ void WorldMap::prepareLevelDebug() {
     level.levelCoordinate.y=-1;
     level.levelCoordinate.z=-1;
 
-    level.pickUps.push_back(std::make_shared<Ruppes>("g-rupees", true, false,"Rupees", 1, 100, 100));
-    level.pickUps.push_back(std::make_shared<Ruppes>("b-rupees", true, false, "Rupees", 3, 150, 100));
-    level.pickUps.push_back(std::make_shared<Ruppes>("r-rupees", true, false, "Rupees", 5, 200, 100));
+    level.pickUps.push_back(std::make_shared<Ruppes>("g-rupees", true, false, false,"Rupees", 1, 100, 100));
+    level.pickUps.push_back(std::make_shared<Ruppes>("b-rupees", true, false, false, "Rupees", 3, 150, 100));
+    level.pickUps.push_back(std::make_shared<Ruppes>("r-rupees", true, false, false, "Rupees", 5, 200, 100));
 
-    level.pickUps.push_back(std::make_shared<HealHeart>("heal", true, false, "Heal", 2, 100, 150));
-    level.pickUps.push_back(std::make_shared<HealHeart>("halfheal", true, false, "Heal", 1, 200, 150));
+    level.pickUps.push_back(std::make_shared<HealHeart>("heal", true, false, false, "Heal", 2, 100, 150));
+    level.pickUps.push_back(std::make_shared<HealHeart>("halfheal", true, false, false, "Heal", 1, 200, 150));
 
-    level.pickUps.push_back(std::make_shared<MaxHeart>("heartup", true, false, "MaxHeart", 2, 100, 200));
+    level.pickUps.push_back(std::make_shared<MaxHeart>("heartup", false, false, true, "MaxHeart", 6, 100, 200));
 
 
     levels.push_back(level);
@@ -159,6 +159,13 @@ void WorldMap::prepareLevel03m1() {
     level.walls.push_back(std::make_shared<Wall>(2,8,32,"shop-wall-bottom"));
     level.teleport = Teleport(4,9,32,"shop-tp", 'U', 142,164);
     level.walls.push_back(std::make_shared<Wall>(8,8,32,"shop-wall-bottom"));
+
+    //Items
+    level.pickUps.push_back(std::make_shared<MaxHeart>("heartup", false, false, true, "MaxHeart", 6, 125, 150));
+    level.pickUps.push_back(std::make_shared<MaxHeart>("heartup", false, false, true, "MaxHeart", 6, 175, 150));
+    level.pickUps.push_back(std::make_shared<MaxHeart>("heartup", false, false, true, "MaxHeart", 6, 225, 150));
+    level.pickUps.push_back(std::make_shared<Ruppes>("r-rupees", true, false, false, "Rupees", 5, 200, 200));
+
 
 
     levels.push_back(level);

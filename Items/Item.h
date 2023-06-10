@@ -9,26 +9,42 @@ class Item {
 protected:
     sf::Texture texture;
     sf::Sprite sprite;
+    sf::Font font;
     std::string filename;
 
+public:
+    bool isPurchasable() const;
+
+protected:
     bool pickable;
     bool usable;
+    bool purchasable;
     std::string tag;
+    int x;
+    int y;
+    int value;
+
 
 public:
-    bool isPickable() const;
-    bool isUsable() const;
-
-public:
-    Item(const std::string& filename, bool pickable, bool usable, std::string tag);
+    Item(const std::string& filename, bool pickable, bool usable, bool purchasable, std::string tag, int x, int y, int value);
     virtual ~Item();
 
     const sf::Sprite &getSprite() const;
+    std::string getTag() const;
+    bool isPickable() const;
+    bool isUsable() const;
+
     void loadTexture();
-    virtual void draw(sf::RenderWindow& window);
     virtual int pickUp() const;
 
-    std::string getTag() const;
+    virtual void draw(sf::RenderWindow& window);
+
+    void setPickable(bool pickable);
+
+    int getValue() const;
+
+    void setPurchasable(bool purchasable);
+
 };
 
 

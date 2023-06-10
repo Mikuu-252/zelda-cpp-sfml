@@ -8,13 +8,9 @@
 
 class Ruppes : public Item {
 
-    int value;
-    int x;
-    int y;
-
 public:
-    Ruppes(const std::string &filename, bool isPickable, bool isUsable, std::string tag, int value, int x, int y);
-    void draw(sf::RenderWindow &window);
+    Ruppes(const std::string &filename, bool pickable, bool usable, bool purchasable, std::string tag, int value, int x, int y);
+
     int pickUp() const;
 };
 

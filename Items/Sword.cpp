@@ -2,8 +2,8 @@
 #include <iostream>
 #include "Sword.h"
 
-Sword::Sword(const std::string& filename, bool isPickable, bool isUsable, std::string tag, int dmg, bool isActive)
-        : Item(filename, isPickable, isUsable, tag), damage(dmg), isActive(isActive) {
+Sword::Sword(const std::string& filename, bool pickable, bool usable,bool purchasable , std::string tag, int x, int y, int value, int dmg, bool isActive)
+        : Item(filename, pickable, usable, purchasable, tag, x, y, value), damage(dmg), isActive(isActive) {
     hide();
 }
 
@@ -26,13 +26,10 @@ void Sword::show(int playerX, int playerY, int lastMove) {
 }
 
 void Sword::hide() {
-    sprite.setPosition(-100, -100);
+    sprite.setPosition(x, y);
 
 }
 
-void Sword::draw(sf::RenderWindow& window) {
-    window.draw(sprite);
-}
 
 bool Sword::getIsActive() const {
     return isActive;

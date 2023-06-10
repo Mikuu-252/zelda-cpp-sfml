@@ -2,15 +2,12 @@
 
 #include "MaxHeart.h"
 
-MaxHeart::MaxHeart(const std::string &filename, bool isPickable, bool isUsable, std::string tag, int value, int x, int y)
-        : Item(filename, isPickable, isUsable, tag), value(value), x(x), y(y) {
+MaxHeart::MaxHeart(const std::string &filename, bool pickable, bool usable, bool purchasable, std::string tag, int value, int x, int y)
+        : Item(filename, pickable, usable, purchasable, tag, x, y, value) {
     sprite.setPosition(x, y);
 }
 
-void MaxHeart::draw(sf::RenderWindow& window) {
-    window.draw(sprite);
-}
 
 int MaxHeart::pickUp() const {
-    return value;
+    return 2;
 }

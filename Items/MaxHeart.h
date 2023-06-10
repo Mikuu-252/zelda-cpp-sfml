@@ -8,13 +8,9 @@
 
 class MaxHeart : public Item {
 
-    int value;
-    int x;
-    int y;
-
 public:
-    MaxHeart(const std::string &filename, bool isPickable, bool isUsable, std::string tag, int value, int x, int y);
-    void draw(sf::RenderWindow &window);
+    MaxHeart(const std::string &filename, bool pickable, bool isable, bool purchasable, std::string tag, int value, int x, int y);
+
     int pickUp() const;
 
 };

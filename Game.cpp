@@ -3,7 +3,7 @@
 #include "Player.h"
 
 
-Game::Game(sf::RenderWindow& window): mainWindow(window), ui(6, 5) {
+Game::Game(sf::RenderWindow &window) : mainWindow(window), ui(6, 5) {
     //mainWindow.create(sf::VideoMode(screenWidth, screenHeight), "The copy of Zelda");
     mainWindow.setFramerateLimit(fps);
 
@@ -221,24 +221,42 @@ void Game::drawSwords() {
 }
 
 void Game::pickUpItems(int x, int y) {
+    std::vector<size_t> indicesToRemove;
+
     for (size_t idx=0; idx<activeLevel.pickUps.size(); idx++) {
+        //Shop
+        if(activeLevel.pickUps[idx]->isPurchasable()) {
+            if (checkCollision(activeLevel.pickUps[idx]->getSprite(), player.getSprite())) {
+                if (activeLevel.pickUps[idx]->getValue() <= player.getMoney()) {
+                    activeLevel.pickUps[idx]->setPurchasable(false);
+                    activeLevel.pickUps[idx]->setPickable(true);
+                    player.setMoney(player.getMoney() - activeLevel.pickUps[idx]->getValue());
+                }
+            }
+        }
+
+        //PickUp
         if(activeLevel.pickUps[idx]->isPickable()) {
             if(checkCollision(activeLevel.pickUps[idx]->getSprite(), player.getSprite())) {
                 if (activeLevel.pickUps[idx]->getTag() == "Rupees") {
                     player.setMoney(player.getMoney() + activeLevel.pickUps[idx]->pickUp());
-                    activeLevel.pickUps.erase(activeLevel.pickUps.begin() + idx);
+                    indicesToRemove.push_back(idx);
                 } else if (activeLevel.pickUps[idx]->getTag() == "Heal") {
                     if(!(player.getHp() >= player.getMaxHp())) {
                         player.setHp(player.getHp() + activeLevel.pickUps[idx]->pickUp());
-                        activeLevel.pickUps.erase(activeLevel.pickUps.begin() + idx);
+                        indicesToRemove.push_back(idx);
                     }
                 } else if (activeLevel.pickUps[idx]->getTag() == "MaxHeart") {
                     player.setMaxHp(player.getMaxHp() + activeLevel.pickUps[idx]->pickUp());
-                    activeLevel.pickUps.erase(activeLevel.pickUps.begin() + idx);
+                    indicesToRemove.push_back(idx);
                 }
-
             }
         }
+    }
+
+    for (auto it = indicesToRemove.rbegin(); it != indicesToRemove.rend(); ++it) {
+        activeLevel.pickUps.erase(activeLevel.pickUps.begin() + *it);
+        worldMap.getLevel().pickUps.erase(worldMap.getLevel().pickUps.begin() + *it);
     }
 }
 

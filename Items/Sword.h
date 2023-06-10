@@ -11,11 +11,10 @@ private:
     bool isActive;
 
 public:
-    Sword(const std::string& filename, bool isPickable, bool isUsable, std::string tag, int dmg, bool isActive);
+    Sword(const std::string& filename, bool pickable, bool usable,bool purchasable , std::string tag, int x, int y, int value, int dmg, bool isActive);
 
     void show(int playerX, int playerY, int lastMove);
     void hide();
-    void draw(sf::RenderWindow& window);
 
     bool getIsActive() const;
     void setIsActive(bool isActive);
