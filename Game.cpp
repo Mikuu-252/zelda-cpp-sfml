@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Items/Ruppes.h"
+#include "Items/HealHeart.h"
 
 
 Game::Game(sf::RenderWindow &window) : mainWindow(window), ui(6, 5) {
@@ -64,12 +65,24 @@ void Game::updateObjects() {
         changeLevel();
     }
 
-    //Wall collision
-    if(checkBorderCollision(x, y) || anyWallCollision()) {
+    //Player move and Wall collision
+    if(checkBorderCollision(x, y) || anyWallCollisionPlayer()) {
         player.negativeUpdate();
     } else {
         //Player move
         player.update();
+    }
+
+    //Enemy move and Wall collision
+    for (size_t idx=0; idx<activeLevel.enemies.size(); idx++) {
+        if(checkBorderCollision(activeLevel.enemies[idx]->getSprite().getPosition().x, activeLevel.enemies[idx]->getSprite().getPosition().y)
+                || anyWallCollisionEnemy(idx)) {
+            activeLevel.enemies[idx]->negativeUpdate();
+            activeLevel.enemies[idx]->changeDirection();
+        } else {
+            //Enemy move
+            activeLevel.enemies[idx]->update();
+        }
     }
 
     //Teleport collision
@@ -134,7 +147,7 @@ bool Game::checkCollision(const sf::Sprite &sprite1, const sf::Sprite &sprite2) 
     return bounds1.intersects(bounds2);
 }
 
-bool Game::anyWallCollision() {
+bool Game::anyWallCollisionPlayer() {
     bool anyWallCollision = false;
 
 
@@ -150,9 +163,25 @@ bool Game::anyWallCollision() {
     return anyWallCollision;
 }
 
+bool Game::anyWallCollisionEnemy(int idx) {
+    bool anyWallCollision = false;
+
+
+    sf::Sprite enemySprite = activeLevel.enemies[idx]->getSprite();
+
+    for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
+        if(Game::checkCollision(enemySprite , activeLevel.walls[idx]->getSprite())){
+            anyWallCollision = true;
+            break;
+        }
+    }
+
+    return anyWallCollision;
+}
+
 bool Game::checkBorderCollision(int x, int y) {
 
-    if(x < 16 || y < 16 || x > screenWidth-16 || y > screenHeight-16) {
+    if(x < 16 || y < 64 || x > screenWidth-30 || y > screenHeight-30) {
         return true;
     }
     return false;
@@ -173,6 +202,10 @@ void Game::changeLevel() {
 
     } else {
         worldMap.changeActiveLevel(1,0,0);
+    }
+
+    for (size_t idx=0; idx<activeLevel.enemies.size(); idx++) {
+        activeLevel.enemies[idx]->resetPosition();
     }
 
     activeLevel = worldMap.getLevel();
@@ -311,13 +344,32 @@ void Game::dmgController() {
             //Heal enemy
             worldMap.getLevel().enemies[idx]->setHp(activeLevel.enemies[idx]->getMaxHp());
 
+
             //Drop
             int x = activeLevel.enemies[idx]->getSprite().getPosition().x;
             int y = activeLevel.enemies[idx]->getSprite().getPosition().y;
 
-            activeLevel.pickUps.push_back(std::make_shared<Ruppes>("g-rupees", true, false, false,"Rupees", 1, x, y));
-            worldMap.getLevel().pickUps.push_back(std::make_shared<Ruppes>("g-rupees", true, false, false,"Rupees", 1, x, y));
+            int drop = rand() % 100 + 1;
 
+            if(drop <= 30) {
+                activeLevel.pickUps.push_back(std::make_shared<Ruppes>("g-rupees", true, false, false,"Rupees", 1, x, y));
+                worldMap.getLevel().pickUps.push_back(std::make_shared<Ruppes>("g-rupees", true, false, false,"Rupees", 1, x, y));
+            } else if (drop > 31 && drop <= 50) {
+                activeLevel.pickUps.push_back(std::make_shared<HealHeart>("halfheal", true, false, false, "Heal", 1, x, y));
+                worldMap.getLevel().pickUps.push_back(std::make_shared<Ruppes>("halfheal", true, false, false,"Heal", 1, x, y));
+            } else if (drop > 51 && drop <= 65) {
+                activeLevel.pickUps.push_back(std::make_shared<HealHeart>("heal", true, false, false, "Heal", 2, x, y));
+                worldMap.getLevel().pickUps.push_back(std::make_shared<Ruppes>("heal", true, false, false,"Heal", 2, x, y));
+            } else if(drop > 66 && drop <= 75) {
+                activeLevel.pickUps.push_back(std::make_shared<Ruppes>("b-rupees", true, false, false,"Rupees", 3, x, y));
+                worldMap.getLevel().pickUps.push_back(std::make_shared<Ruppes>("b-rupees", true, false, false,"Rupees", 3, x, y));
+            } else if(drop > 76 && drop <= 85) {
+                activeLevel.pickUps.push_back(std::make_shared<Ruppes>("r-rupees", true, false, false,"Rupees", 5, x, y));
+                worldMap.getLevel().pickUps.push_back(std::make_shared<Ruppes>("r-rupees", true, false, false,"Rupees", 5, x, y));
+            }
+
+            //Reset Position
+            activeLevel.enemies[idx]->resetPosition();
             //Erase enemy
             activeLevel.enemies.erase(activeLevel.enemies.begin() + idx);
         }

@@ -78,7 +78,7 @@ void WorldMap::prepareLevelDebug() {
     //level.pickUps.push_back(std::make_shared<Ruppes>("b-rupees", true, false, false, "Rupees", 3, 150, 100));
     //level.pickUps.push_back(std::make_shared<Ruppes>("r-rupees", true, false, false, "Rupees", 5, 200, 100));
 
-    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 150, 150, 1, 3, 1));
+    //level.enemies.push_back(std::make_shared<Enemy>("shyguy", 150, 150, 0, 3, 1));
 
     //level.pickUps.push_back(std::make_shared<HealHeart>("heal", true, false, false, "Heal", 2, 100, 150));
     //level.pickUps.push_back(std::make_shared<HealHeart>("halfheal", true, false, false, "Heal", 1, 200, 150));
@@ -98,20 +98,6 @@ void WorldMap::prepareLevel130() {
     level.levelCoordinate.z=0;
 
     //Floor
-/*    for (int x = 6; x < 10; ++x) {
-        for (int y = 2; y < 5; ++y) {
-            //level.floors.push_back(Floor(x,y,32,"grass"));
-            level.floors.push_back(std::make_shared<Floor>(x,y,32,"grass"));
-        }
-    }
-
-    for (int x = 0; x < 10; ++x) {
-        for (int y = 5; y < 8; ++y) {
-            //level.floors.push_back(Floor(x,y,32,"grass"));
-            level.floors.push_back(std::make_shared<Floor>(x,y,32,"grass"));
-        }
-    }*/
-
     level.floors.push_back(std::make_shared<Floor>(0,2,32,"grass"));
 
     //Walls
@@ -121,6 +107,7 @@ void WorldMap::prepareLevel130() {
     //level.teleport = Teleport(4,2,32,"wall1x3");
     level.walls.push_back(std::make_shared<Wall>(4,2,32,"wall1x3"));
     level.walls.push_back(std::make_shared<Wall>(5,2,32,"wall1x3"));
+
 
     levels.push_back(level);
 }
@@ -197,6 +184,10 @@ void WorldMap::prepareLevel120() {
     level.walls.push_back(std::make_shared<Wall>(10,2,32,"wall2x8"));
     level.walls.push_back(std::make_shared<Wall>(0,7,32,"wall6x3"));
 
+    //Enemies
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 3*32, 4*32, 0.5, 3, 1));
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 8*32, 4*32, 0.5, 3, 1));
+
     levels.push_back(level);
 }
 
@@ -216,6 +207,11 @@ void WorldMap::prepareLevel020() {
     level.walls.push_back(std::make_shared<Wall>(0,2,32,"wall2x8"));
     level.walls.push_back(std::make_shared<Wall>(2,7,32,"wall6x3"));
     level.walls.push_back(std::make_shared<Wall>(11,7,32,"wall1x3"));
+
+    //Enemies
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 3*32, 3*32, 0.5, 3, 1));
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 3*32, 5*32, 0.5, 3, 1));
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 6*32, 4*32, 0.5, 3, 1));
 
 
     levels.push_back(level);
@@ -241,6 +237,9 @@ void WorldMap::prepareLevel110() {
     level.walls.push_back(std::make_shared<Wall>(10,2,32,"wall2x8"));
     level.walls.push_back(std::make_shared<Wall>(0,8,32,"wall2x2"));
 
+    //Enemies
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 5*32, 6*32, 0.5, 3, 1));
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 7*32, 3*32, 0.5, 3, 1));
 
     levels.push_back(level);
 }
@@ -266,6 +265,9 @@ void WorldMap::prepareLevel010() {
     level.walls.push_back(std::make_shared<Wall>(10,2,32,"wall2x3"));
     level.walls.push_back(std::make_shared<Wall>(10,8,32,"wall2x2"));
 
+    //Enemies
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 4*32, 7*32, 0.5, 3, 1));
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 7*32, 7*32, 0.5, 3, 1));
 
     levels.push_back(level);
 }
@@ -286,6 +288,11 @@ void WorldMap::prepareLevel100() {
     level.walls.push_back(std::make_shared<Wall>(10,4,32,"wall2x6"));
     level.walls.push_back(std::make_shared<Wall>(0,9,32,"wall5x1"));
 
+    //Enemies
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 2*32, 5*32, 0.5, 3, 1));
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 2*32, 7*32, 0.5, 3, 1));
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 7*32, 5*32, 0.5, 3, 1));
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 7*32, 7*32, 0.5, 3, 1));
 
     levels.push_back(level);
 }
@@ -335,6 +342,9 @@ void WorldMap::prepareLevel00m1() {
     level.walls.push_back(std::make_shared<Wall>(4,9,32,"dung-tp"));
     level.teleport = Teleport(4,9,32,"teleport1x4", 'U', 174,232);
     level.walls.push_back(std::make_shared<Wall>(8,8,32,"dung-wall-bottom"));
+
+    //Enemies
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy-boss", 5*32, 4*32, 0.5, 5, 2));
 
 
     levels.push_back(level);

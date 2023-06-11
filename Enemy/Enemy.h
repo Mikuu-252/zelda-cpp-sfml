@@ -26,6 +26,9 @@ protected:
     int lastMove;
     int immortalFrames = 0;
     int maxImmortalFrames = 8;
+    int directionTimer = 0;
+    int maxDirectionTimer = 60;
+    int direction = 1;
 
     //Anim
     int frameNumber;
@@ -46,20 +49,18 @@ public:
     void negativeUpdate();
 
     int getMaxHp() const;
-
     int getHp() const;
-
     const sf::Sprite &getSprite() const;
     int getImmortalFrames() const;
     int getMaxImmortalFrames() const;
 
     void setHp(int hp);
     void setImmortalFrames(int immortalFrames);
-    void setMaxImmortalFrames(int maxImmortalFrames);
     void takeDmg(int dmg);
 
     int getDmg() const;
-
+    void changeDirection();
+    void resetPosition();
 
 };
 

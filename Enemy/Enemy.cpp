@@ -23,7 +23,7 @@ void Enemy::init() {
     //Animation
     frameNumber = 4;
     animNumber = 4;
-    animSpeed = 20;
+    animSpeed = 10;
 
     int textureWidth = texture.getSize().x / frameNumber;
     int textureHeight = texture.getSize().y / animNumber;
@@ -59,19 +59,26 @@ void Enemy::draw(sf::RenderWindow &window) {
 void Enemy::update() {
     sf::Vector2f movement(0.f, 0.f);
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+    if(maxDirectionTimer == directionTimer) {
+        changeDirection();
+        directionTimer = 0;
+    } else {
+        directionTimer += 1;
+    }
+
+    if (direction == 1) {
         movement.y -= speed;
         lastMove = 1;
     } else
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+    if (direction == 2) {
         movement.y += speed;
         lastMove = 2;
     } else
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+    if (direction == 3) {
         movement.x -= speed;
         lastMove = 3;
     } else
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+    if (direction == 4) {
         movement.x += speed;
         lastMove = 4;
     }
@@ -141,10 +148,6 @@ int Enemy::getMaxImmortalFrames() const {
     return maxImmortalFrames;
 }
 
-void Enemy::setMaxImmortalFrames(int maxImmortalFrames) {
-    Enemy::maxImmortalFrames = maxImmortalFrames;
-}
-
 void Enemy::takeDmg(int dmg) {
     hp -= dmg;
 }
@@ -163,4 +166,12 @@ int Enemy::getDmg() const {
 
 int Enemy::getHp() const {
     return hp;
+}
+
+void Enemy::changeDirection() {
+    direction = rand() % 4 + 1;
+}
+
+void Enemy::resetPosition() {
+    sprite.setPosition(x, y);
 }

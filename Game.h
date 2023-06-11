@@ -47,7 +47,8 @@ class Game {
     //Collisions
     bool checkCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2);
     bool checkBorderCollision(int x, int y);
-    bool anyWallCollision();
+    bool anyWallCollisionPlayer();
+    bool anyWallCollisionEnemy(int idx);
     bool checkLevelChange();
 
 public:

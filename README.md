@@ -22,6 +22,7 @@ W projekcie chciałbym zamieścić:
 <li>Shy Guy - https://www.spriters-resource.com/custom_edited/thelegendofzeldacustoms/sheet/151024/</li>
 <li>Rupees - https://www.spriters-resource.com/custom_edited/thelegendofzeldacustoms/sheet/17479/</li>
 <li>Items - https://www.spriters-resource.com/custom_edited/thelegendofzeldacustoms/sheet/60633/</li>
+<li>Map textures based on - https://www.spriters-resource.com/custom_edited/thelegendofzeldacustoms/sheet/129631/</li>
 </ul>
 
 ## Authors
