@@ -22,7 +22,7 @@ void Teleport::loadTexture(std::string filename) {
 void Teleport::init() {
 
     sprite.setTexture(texture);
-    sprite.setPosition(x*size, y*size);
+    sprite.setPosition(x*size, (y*size)-5);
 
 }
 

@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
-#include "WorldMap.h"
 
 int main() {
     int screenWidth = 384;

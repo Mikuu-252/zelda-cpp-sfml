@@ -97,6 +97,8 @@ void Game::updateObjects() {
 void Game::drawObjects() {
 
 
+    activeLevel.teleport.draw(mainWindow);
+
     for (size_t idx=0; idx<activeLevel.floors.size(); idx++) {
         activeLevel.floors[idx]->draw(mainWindow);
     }
@@ -105,7 +107,6 @@ void Game::drawObjects() {
         activeLevel.walls[idx]->draw(mainWindow);
     }
 
-    activeLevel.teleport.draw(mainWindow);
 
     drawSwords();
 

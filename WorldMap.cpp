@@ -135,7 +135,9 @@ void WorldMap::prepareLevel030() {
 
     //Shop
     level.walls.push_back(std::make_shared<Wall>(2,2,32,"shop2x3-left"));
-    level.teleport = Teleport(4,2,32,"shop2x3-center", 'D', 180,242);
+    level.walls.push_back(std::make_shared<Wall>(4,2,32,"shop2x3-center"));
+
+    level.teleport = Teleport(4,4,32,"teleport1x2", 'D', 180,242);
     level.walls.push_back(std::make_shared<Wall>(6,2,32,"shop2x3-right"));
 
 
@@ -151,22 +153,21 @@ void WorldMap::prepareLevel03m1() {
     level.levelCoordinate.z=-1;
 
     //Floor
+    level.floors.push_back(std::make_shared<Floor>(0,2,32,"grass"));
 
     //Walls
     level.walls.push_back(std::make_shared<Wall>(0,2,32,"shop-wall-top"));
     level.walls.push_back(std::make_shared<Wall>(0,4,32,"shop-wall"));
     level.walls.push_back(std::make_shared<Wall>(10,4,32,"shop-wall"));
     level.walls.push_back(std::make_shared<Wall>(2,8,32,"shop-wall-bottom"));
-    level.teleport = Teleport(4,9,32,"shop-tp", 'U', 142,164);
+    level.walls.push_back(std::make_shared<Wall>(4,9,32,"shop-tp"));
+    level.teleport = Teleport(4,9,32,"teleport1x4", 'U', 142,164);
     level.walls.push_back(std::make_shared<Wall>(8,8,32,"shop-wall-bottom"));
 
     //Items
     level.pickUps.push_back(std::make_shared<MaxHeart>("heartup", false, false, true, "MaxHeart", 6, 125, 150));
     level.pickUps.push_back(std::make_shared<MaxHeart>("heartup", false, false, true, "MaxHeart", 6, 175, 150));
     level.pickUps.push_back(std::make_shared<MaxHeart>("heartup", false, false, true, "MaxHeart", 6, 225, 150));
-    level.pickUps.push_back(std::make_shared<Ruppes>("r-rupees", true, false, false, "Rupees", 5, 200, 200));
-
-
 
     levels.push_back(level);
 }
@@ -300,7 +301,8 @@ void WorldMap::prepareLevel000() {
 
     //Dung
     level.walls.push_back(std::make_shared<Wall>(3,4,32,"dung2x3-left"));
-    level.teleport = Teleport(5,4,32,"dung2x3-center-closed", 'D', 176,236); //doors
+    level.walls.push_back(std::make_shared<Wall>(5,4,32,"dung2x3-center-open")); //doors
+    level.teleport = Teleport(5,6,32,"teleport1x2", 'D', 176,236); //doors
     level.walls.push_back(std::make_shared<Wall>(7,4,32,"dung2x3-right"));
 
 
@@ -314,12 +316,16 @@ void WorldMap::prepareLevel00m1() {
     level.levelCoordinate.x=0;
     level.levelCoordinate.y=0;
     level.levelCoordinate.z=-1;
+    //Floor
+    level.floors.push_back(std::make_shared<Floor>(0,2,32,"dungeon-floor"));
 
+    //Walls
     level.walls.push_back(std::make_shared<Wall>(0,2,32,"dung-wall-top"));
     level.walls.push_back(std::make_shared<Wall>(0,4,32,"dung-wall"));
     level.walls.push_back(std::make_shared<Wall>(10,4,32,"dung-wall"));
     level.walls.push_back(std::make_shared<Wall>(2,8,32,"dung-wall-bottom"));
-    level.teleport = Teleport(4,9,32,"dung-tp", 'U', 174,232);
+    level.walls.push_back(std::make_shared<Wall>(4,9,32,"dung-tp"));
+    level.teleport = Teleport(4,9,32,"teleport1x4", 'U', 174,232);
     level.walls.push_back(std::make_shared<Wall>(8,8,32,"dung-wall-bottom"));
 
 
