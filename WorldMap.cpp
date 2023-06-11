@@ -40,6 +40,12 @@ void WorldMap::debugLevel() {
     activeLevel.z=-1;
 }
 
+void WorldMap::resetLevel() {
+    activeLevel.x=1;
+    activeLevel.y=3;
+    activeLevel.z=0;
+}
+
 Level &WorldMap::getLevel() {
     for (size_t idx=0; idx<levels.size(); idx++)
     {
@@ -68,14 +74,16 @@ void WorldMap::prepareLevelDebug() {
     level.levelCoordinate.y=-1;
     level.levelCoordinate.z=-1;
 
-    level.pickUps.push_back(std::make_shared<Ruppes>("g-rupees", true, false, false,"Rupees", 1, 100, 100));
-    level.pickUps.push_back(std::make_shared<Ruppes>("b-rupees", true, false, false, "Rupees", 3, 150, 100));
-    level.pickUps.push_back(std::make_shared<Ruppes>("r-rupees", true, false, false, "Rupees", 5, 200, 100));
+    //level.pickUps.push_back(std::make_shared<Ruppes>("g-rupees", true, false, false,"Rupees", 1, 100, 100));
+    //level.pickUps.push_back(std::make_shared<Ruppes>("b-rupees", true, false, false, "Rupees", 3, 150, 100));
+    //level.pickUps.push_back(std::make_shared<Ruppes>("r-rupees", true, false, false, "Rupees", 5, 200, 100));
 
-    level.pickUps.push_back(std::make_shared<HealHeart>("heal", true, false, false, "Heal", 2, 100, 150));
-    level.pickUps.push_back(std::make_shared<HealHeart>("halfheal", true, false, false, "Heal", 1, 200, 150));
+    level.enemies.push_back(std::make_shared<Enemy>("shyguy", 150, 150, 1, 3, 1));
 
-    level.pickUps.push_back(std::make_shared<MaxHeart>("heartup", false, false, true, "MaxHeart", 6, 100, 200));
+    //level.pickUps.push_back(std::make_shared<HealHeart>("heal", true, false, false, "Heal", 2, 100, 150));
+    //level.pickUps.push_back(std::make_shared<HealHeart>("halfheal", true, false, false, "Heal", 1, 200, 150));
+
+    //level.pickUps.push_back(std::make_shared<MaxHeart>("heartup", false, false, true, "MaxHeart", 6, 100, 200));
 
 
     levels.push_back(level);

@@ -7,6 +7,7 @@
 #include "Floor.h"
 #include "Teleport.h"
 #include "Items/Item.h"
+#include "Enemy/Enemy.h"
 
 struct LevelCoordinate {
     int x;
@@ -20,6 +21,7 @@ struct Level{
     Teleport teleport;
     std::vector<std::shared_ptr<Wall>> walls;
     std::vector<std::shared_ptr<Floor>> floors;
+    std::vector<std::shared_ptr<Enemy>> enemies;
     std::vector<std::shared_ptr<Item>> pickUps;
 };
 
@@ -51,6 +53,7 @@ public:
     WorldMap();
     Level &getLevel();
     void debugLevel();
+    void resetLevel();
     void changeActiveLevel(int x, int y, int z);
 };
 

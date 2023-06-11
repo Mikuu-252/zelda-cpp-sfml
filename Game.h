@@ -35,8 +35,9 @@ class Game {
 
 
     void updateObjects();
-    void updateSwords(int x, int y);
+    void updateSwords();
     void pickUpItems(int x, int y);
+    void dmgController();
 
     void drawObjects();
     void drawSwords();
@@ -48,7 +49,6 @@ class Game {
     bool checkBorderCollision(int x, int y);
     bool anyWallCollision();
     bool checkLevelChange();
-
 
 public:
     Game(sf::RenderWindow &window);

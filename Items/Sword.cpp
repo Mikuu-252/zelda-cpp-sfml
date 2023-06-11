@@ -10,19 +10,23 @@ Sword::Sword(const std::string& filename, bool pickable, bool usable,bool purcha
 void Sword::show(int playerX, int playerY, int lastMove) {
 
     if(lastMove == 1) {
-        sprite.setPosition(playerX, playerY-10);
+        sprite.setPosition(playerX, playerY-15);
         sprite.setRotation(0);
     } else if (lastMove == 2) {
-        sprite.setPosition(playerX+32, playerY+40);
+        sprite.setPosition(playerX+32, playerY+45);
         sprite.setRotation(180);
     } else if (lastMove == 3) {
-        sprite.setPosition(playerX-10, playerY+32);
+        sprite.setPosition(playerX-13, playerY+32);
         sprite.setRotation(270);
     } else {
-        sprite.setPosition(playerX+40, playerY+10);
+        sprite.setPosition(playerX+43, playerY+10);
         sprite.setRotation(90);
     }
 
+}
+
+int Sword::getDamage() const {
+    return damage;
 }
 
 void Sword::hide() {

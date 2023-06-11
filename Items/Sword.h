@@ -19,6 +19,8 @@ public:
     bool getIsActive() const;
     void setIsActive(bool isActive);
 
+    int getDamage() const;
+
 };
 
 

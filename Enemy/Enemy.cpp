@@ -1,27 +1,27 @@
-#include <iostream>
-#include "Player.h"
 
-Player::Player() {
+
+#include <iostream>
+#include "Enemy.h"
+
+Enemy::Enemy(const std::string &filename, int x, int y, float speed, int maxHp, int dmg)
+        :filename(filename), x(x), y(y),speed(speed),maxHp(maxHp), dmg(dmg) {
     loadTexture();
     init();
 }
 
-void Player::loadTexture() {
-    if (!texture.loadFromFile("../assets/entity/character.png")) {
-        std::cerr << "Texture error player \n";
+void Enemy::loadTexture() {
+    if (!texture.loadFromFile("../assets/entity/" + filename + ".png")) {
+        std::cerr << "Texture error for item: " << filename << "\n";
     }
+    sprite.setTexture(texture);
 }
 
-void Player::init() {
-    //Player
-    playerSpeed = 2;
-    lastMove = 2;
-    money = 5;
-    maxHp = 6;
-    hp = 6;
+void Enemy::init() {
+
+    hp = maxHp;
 
     //Animation
-    frameNumber = 9;
+    frameNumber = 4;
     animNumber = 4;
     animSpeed = 20;
 
@@ -49,79 +49,62 @@ void Player::init() {
     //Texture
     sprite.setTexture(texture);
     sprite.setTextureRect(animDown[0]);
-    sprite.setPosition(256, 192);
-
+    sprite.setPosition(x, y);
 }
 
-int Player::getMoney() const {
-    return money;
-}
-
-void Player::setMoney(int money) {
-    Player::money = money;
-}
-
-int Player::getHp() const {
-    return hp;
-}
-
-void Player::setHp(int hp) {
-    Player::hp = hp;
-}
-
-void Player::update() {
-    sf::Vector2f movement(0.f, 0.f);
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        movement.y -= playerSpeed;
-        lastMove = 1;
-    } else
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        movement.y += playerSpeed;
-        lastMove = 2;
-    } else
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        movement.x -= playerSpeed;
-        lastMove = 3;
-    } else
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        movement.x += playerSpeed;
-        lastMove = 4;
-    }
-
-    playerMove(movement);
-    playerAnim(movement);
-
-}
-
-void Player::negativeUpdate() {
-    sf::Vector2f movement(0.f, 0.f);
-
-    if (lastMove == 1) {
-        movement.y += playerSpeed;
-    } else
-    if (lastMove == 2) {
-        movement.y -= playerSpeed;
-    } else
-    if (lastMove == 3) {
-        movement.x += playerSpeed;
-    } else
-    if (lastMove == 4) {
-        movement.x -= playerSpeed;
-    }
-
-    playerMove(movement);
-}
-
-void Player::draw(sf::RenderWindow& window) {
+void Enemy::draw(sf::RenderWindow &window) {
     window.draw(sprite);
 }
 
-void Player::playerMove(sf::Vector2f movement) {
+void Enemy::update() {
+    sf::Vector2f movement(0.f, 0.f);
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+        movement.y -= speed;
+        lastMove = 1;
+    } else
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+        movement.y += speed;
+        lastMove = 2;
+    } else
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+        movement.x -= speed;
+        lastMove = 3;
+    } else
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+        movement.x += speed;
+        lastMove = 4;
+    }
+
+    move(movement);
+    anim(movement);
+
+}
+
+void Enemy::negativeUpdate() {
+    sf::Vector2f movement(0.f, 0.f);
+
+    if (lastMove == 1) {
+        movement.y += speed;
+    } else
+    if (lastMove == 2) {
+        movement.y -= speed;
+    } else
+    if (lastMove == 3) {
+        movement.x += speed;
+    } else
+    if (lastMove == 4) {
+        movement.x -= speed;
+    }
+
+    move(movement);
+}
+
+void Enemy::move(sf::Vector2f movement) {
     sprite.move(movement);
 }
 
-void Player::playerAnim(sf::Vector2f movement) {
+void Enemy::anim(sf::Vector2f movement) {
 
     int frameIndex = 0;
     sf::Time currentTime = clock.getElapsedTime();
@@ -141,62 +124,43 @@ void Player::playerAnim(sf::Vector2f movement) {
     }
 }
 
-const sf::Sprite &Player::getSprite() const {
+
+const sf::Sprite &Enemy::getSprite() const {
     return sprite;
 }
 
-int Player::getLastMove() const {
-    return lastMove;
-}
-
-void Player::changeLevelPos() {
-    int x = sprite.getPosition().x;
-    int y = sprite.getPosition().y;
-
-    if (lastMove == 1) {
-        sprite.setPosition(x, 320-34);
-    }
-    if (lastMove == 2) {
-        sprite.setPosition(x, 78);
-    }
-    if (lastMove == 3) {
-        sprite.setPosition(384-34, y);;
-    }
-    if (lastMove == 4) {
-        sprite.setPosition(34, y);
-    }
-}
-
-void Player::setPosition(int x, int y) {
-    sprite.setPosition(x, y);
-}
-
-int Player::getMaxHp() const {
-    return maxHp;
-}
-
-void Player::setMaxHp(int maxHp) {
-    Player::maxHp = maxHp;
-}
-
-int Player::getImmortalFrames() const {
+int Enemy::getImmortalFrames() const {
     return immortalFrames;
 }
 
-int Player::getMaxImmortalFrames() const {
+void Enemy::setImmortalFrames(int immortalFrames) {
+    Enemy::immortalFrames = immortalFrames;
+}
+
+int Enemy::getMaxImmortalFrames() const {
     return maxImmortalFrames;
 }
 
-void Player::setImmortalFrames(int immortalFrames) {
-    Player::immortalFrames = immortalFrames;
+void Enemy::setMaxImmortalFrames(int maxImmortalFrames) {
+    Enemy::maxImmortalFrames = maxImmortalFrames;
 }
 
-void Player::takeDmg(int dmg) {
+void Enemy::takeDmg(int dmg) {
     hp -= dmg;
 }
 
-void Player::reset() {
-    hp = maxHp;
+int Enemy::getMaxHp() const {
+    return maxHp;
+}
 
-    sprite.setPosition(256, 192);
+void Enemy::setHp(int hp) {
+    Enemy::hp = hp;
+}
+
+int Enemy::getDmg() const {
+    return dmg;
+}
+
+int Enemy::getHp() const {
+    return hp;
 }

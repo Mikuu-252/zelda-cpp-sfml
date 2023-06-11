@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Game.h"
 #include "Player.h"
+#include "Items/Ruppes.h"
 
 
 Game::Game(sf::RenderWindow &window) : mainWindow(window), ui(6, 5) {
@@ -86,7 +87,10 @@ void Game::updateObjects() {
     pickUpItems(x, y);
 
     //Use item
-    updateSwords(x, y);
+    updateSwords();
+
+    //Sword collision
+    dmgController();
 
     //Update ui
     ui.update(player.getMaxHp(), player.getHp(), player.getMoney());
@@ -112,6 +116,10 @@ void Game::drawObjects() {
 
     for (size_t idx=0; idx<activeLevel.pickUps.size(); idx++) {
         activeLevel.pickUps[idx]->draw(mainWindow);
+    }
+
+    for (size_t idx=0; idx<activeLevel.enemies.size(); idx++) {
+        activeLevel.enemies[idx]->draw(mainWindow);
     }
 
     player.draw(mainWindow);
@@ -189,19 +197,19 @@ bool Game::checkLevelChange() {
 
 }
 
-void Game::updateSwords(int x, int y) {
+void Game::updateSwords() {
 
     if (basicSword.getIsActive()) {
         basicSword.hide();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            basicSword.show(x, y, player.getLastMove());
+            basicSword.show(player.getSprite().getPosition().x, player.getSprite().getPosition().y, player.getLastMove());
         }
     }
 
     if (upgradeSword.getIsActive()) {
         upgradeSword.hide();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            upgradeSword.show(x, y, player.getLastMove());
+            upgradeSword.show(player.getSprite().getPosition().x, player.getSprite().getPosition().y, player.getLastMove());
         }
     }
 
@@ -258,6 +266,68 @@ void Game::pickUpItems(int x, int y) {
     for (auto it = indicesToRemove.rbegin(); it != indicesToRemove.rend(); ++it) {
         activeLevel.pickUps.erase(activeLevel.pickUps.begin() + *it);
         worldMap.getLevel().pickUps.erase(worldMap.getLevel().pickUps.begin() + *it);
+    }
+}
+
+void Game::dmgController() {
+    for (size_t idx=0; idx<activeLevel.enemies.size(); idx++) {
+        //Basic sword
+        if(checkCollision(basicSword.getSprite(), activeLevel.enemies[idx]->getSprite())) {
+            if(activeLevel.enemies[idx]->getImmortalFrames() ==  activeLevel.enemies[idx]->getMaxImmortalFrames()) {
+                activeLevel.enemies[idx]->setImmortalFrames(0);
+            } else if(activeLevel.enemies[idx]->getImmortalFrames() == 0) {
+                activeLevel.enemies[idx]->takeDmg(basicSword.getDamage());
+                activeLevel.enemies[idx]->setImmortalFrames(1);
+            } else {
+                activeLevel.enemies[idx]->setImmortalFrames(activeLevel.enemies[idx]->getImmortalFrames() + 1);
+            }
+        }
+        //Upgraded sword
+        if(checkCollision(upgradeSword.getSprite(), activeLevel.enemies[idx]->getSprite())) {
+            if (activeLevel.enemies[idx]->getImmortalFrames() == activeLevel.enemies[idx]->getMaxImmortalFrames()) {
+                activeLevel.enemies[idx]->setImmortalFrames(0);
+            } else if (activeLevel.enemies[idx]->getImmortalFrames() == 0) {
+                activeLevel.enemies[idx]->takeDmg(upgradeSword.getDamage());
+                activeLevel.enemies[idx]->setImmortalFrames(1);
+            } else {
+                activeLevel.enemies[idx]->setImmortalFrames(activeLevel.enemies[idx]->getImmortalFrames() + 1);
+            }
+        }
+
+        // Player dmg
+        if(checkCollision(player.getSprite(), activeLevel.enemies[idx]->getSprite())) {
+            if(player.getImmortalFrames() ==  player.getMaxImmortalFrames()) {
+                player.setImmortalFrames(0);
+            } else if(player.getImmortalFrames() == 0) {
+                player.takeDmg(activeLevel.enemies[idx]->getDmg());
+                player.setImmortalFrames(1);
+            } else {
+                player.setImmortalFrames(player.getImmortalFrames() + 1);
+            }
+        }
+
+        //Enemy die
+        if(activeLevel.enemies[idx]->getHp() <= 0) {
+            //Heal enemy
+            worldMap.getLevel().enemies[idx]->setHp(activeLevel.enemies[idx]->getMaxHp());
+
+            //Drop
+            int x = activeLevel.enemies[idx]->getSprite().getPosition().x;
+            int y = activeLevel.enemies[idx]->getSprite().getPosition().y;
+
+            activeLevel.pickUps.push_back(std::make_shared<Ruppes>("g-rupees", true, false, false,"Rupees", 1, x, y));
+            worldMap.getLevel().pickUps.push_back(std::make_shared<Ruppes>("g-rupees", true, false, false,"Rupees", 1, x, y));
+
+            //Erase enemy
+            activeLevel.enemies.erase(activeLevel.enemies.begin() + idx);
+        }
+
+        //Player die
+        if(player.getHp() <= 0) {
+            player.reset();
+            worldMap.resetLevel();
+            activeLevel = worldMap.getLevel();
+        }
     }
 }
 

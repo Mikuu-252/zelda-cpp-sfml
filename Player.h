@@ -28,13 +28,11 @@ private:
     //Stats
     int money;
     int hp;
-public:
-    int getMaxHp() const;
-
-    void setMaxHp(int maxHp);
-
-private:
     int maxHp;
+
+
+    int immortalFrames = 0;
+    int maxImmortalFrames = 60;
 
     //Func
     void loadTexture();
@@ -45,6 +43,7 @@ private:
 
 public:
     Player();
+    void reset();
 
     //Draw
     void draw(sf::RenderWindow& window);
@@ -52,22 +51,25 @@ public:
     //Getter
     const sf::Sprite &getSprite() const;
     int getLastMove() const;
+    int getMaxHp() const;
+    int getHp() const;
+    int getMoney() const;
+    int getImmortalFrames() const;
+    int getMaxImmortalFrames() const;
 
     //Setter
     void setPosition(int x, int y);
+    void setMaxHp(int maxHp);
+    void setHp(int hp);
+    void setMoney(int money);
+    void setImmortalFrames(int immortalFrames);
+    void takeDmg(int dmg);
 
     //Update
     void negativeUpdate();
     void update();
     void changeLevelPos();
 
-    int getMoney() const;
-
-    void setMoney(int money);
-
-    int getHp() const;
-
-    void setHp(int hp);
 
 };
 
