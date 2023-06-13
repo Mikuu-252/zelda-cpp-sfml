@@ -7,6 +7,7 @@ Sword::Sword(const std::string& filename, bool pickable, bool usable,bool purcha
     hide();
 }
 
+//Update
 void Sword::show(int playerX, int playerY, int lastMove) {
 
     if(lastMove == 1) {
@@ -24,14 +25,14 @@ void Sword::show(int playerX, int playerY, int lastMove) {
     }
 
 }
-
-int Sword::getDamage() const {
-    return damage;
-}
-
 void Sword::hide() {
     sprite.setPosition(x, y);
 
+}
+
+//Getter
+int Sword::getDamage() const {
+    return damage;
 }
 
 
@@ -39,6 +40,7 @@ bool Sword::getIsActive() const {
     return isActive;
 }
 
+//Setter
 void Sword::setIsActive(bool isActive) {
     Sword::isActive = isActive;
 }

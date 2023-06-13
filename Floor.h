@@ -7,12 +7,15 @@
 
 class Floor {
 private:
+
     sf::Texture texture;
     sf::Sprite sprite;
     int x;
     int y;
     int size;
     std::string filename;
+
+
     void loadTexture(std::string filename);
     void init();
 
@@ -20,6 +23,7 @@ public:
     Floor(int x, int y, int size, std::string filename);
     void draw(sf::RenderWindow& window);
 
+    //Getter
     const sf::Sprite &getSprite() const;
 };
 

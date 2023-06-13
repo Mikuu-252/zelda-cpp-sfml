@@ -48,6 +48,11 @@ public:
     //Draw
     void draw(sf::RenderWindow& window);
 
+    //Update
+    void negativeUpdate();
+    void update();
+    void changeLevelPos();
+
     //Getter
     const sf::Sprite &getSprite() const;
     int getLastMove() const;
@@ -65,10 +70,7 @@ public:
     void setImmortalFrames(int immortalFrames);
     void takeDmg(int dmg);
 
-    //Update
-    void negativeUpdate();
-    void update();
-    void changeLevelPos();
+
 
 
 };

@@ -14,6 +14,7 @@ struct LevelCoordinate {
     int y;
     int z;
 };
+
 struct Level{
     LevelCoordinate levelCoordinate;
     //std::vector<Wall> walls;
@@ -51,9 +52,9 @@ class WorldMap {
 
 public:
     WorldMap();
-    Level &getLevel();
     void debugLevel();
     void resetLevel();
+    Level &getLevel();
     void changeActiveLevel(int x, int y, int z);
 };
 

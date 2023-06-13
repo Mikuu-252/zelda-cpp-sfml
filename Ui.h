@@ -16,15 +16,18 @@ struct Money {
 };
 
 class Ui {
+    //Hearts
     Heart heart0;
     Heart heart1;
     Heart heart05;
-    Money money;
-    sf::Font font;
-    sf::Text moneyText;
 
     int maxHp;
     int hp;
+
+    //Money
+    Money money;
+    sf::Font font;
+    sf::Text moneyText;
 
     int moneyValue;
 
@@ -32,8 +35,12 @@ class Ui {
 
 public:
     Ui(int maxHp, int money);
-    void draw(sf::RenderWindow& window);
+
+    //Update
     void update(int maxHp, int hp, int money);
+
+    //Draw
+    void draw(sf::RenderWindow& window);
 };
 
 

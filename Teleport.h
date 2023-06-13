@@ -23,17 +23,15 @@ private:
 
 public:
     Teleport(int x, int y, int size, std::string filename, char direction, int tpX, int tpY);
-
     Teleport();
 
+    //Draw
     void draw(sf::RenderWindow& window);
 
+    //Getter
     const sf::Sprite &getSprite() const;
-
     char getDirection() const;
-
     int getTpX() const;
-
     int getTpY() const;
 
 

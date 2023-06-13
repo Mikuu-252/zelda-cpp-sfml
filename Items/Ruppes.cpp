@@ -1,6 +1,3 @@
-
-
-#include <iostream>
 #include "Ruppes.h"
 
 Ruppes::Ruppes(const std::string &filename, bool pickable, bool usable, bool purchasable, std::string tag, int value, int x, int y)

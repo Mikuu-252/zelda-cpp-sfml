@@ -1,20 +1,16 @@
 
 
 #include "WorldMap.h"
-#include "Items/Ruppes.h"
-#include "Items/HealHeart.h"
+//#include "Items/Ruppes.h"
+//#include "Items/HealHeart.h"
 #include "Items/MaxHeart.h"
 
-WorldMap::WorldMap() {
-    init();
-}
 
-
+//Private func
 void WorldMap::init() {
     activeLevel.x=1;
     activeLevel.y=3;
     activeLevel.z=0;
-
 
     prepareLevelDebug();
 
@@ -33,6 +29,10 @@ void WorldMap::init() {
     prepareLevel00m1();
 }
 
+//Public func
+WorldMap::WorldMap() {
+    init();
+}
 
 void WorldMap::debugLevel() {
     activeLevel.x=-1;
@@ -65,7 +65,7 @@ void WorldMap::changeActiveLevel(int x, int y, int z) {
     activeLevel.z += z;
 }
 
-
+//Private
 //Level prepare
 void WorldMap::prepareLevelDebug() {
     Level level;
@@ -148,7 +148,7 @@ void WorldMap::prepareLevel03m1() {
     level.levelCoordinate.z=-1;
 
     //Floor
-    level.floors.push_back(std::make_shared<Floor>(0,2,32,"grass"));
+    level.floors.push_back(std::make_shared<Floor>(0,2,32,"shop-floor"));
 
     //Walls
     level.walls.push_back(std::make_shared<Wall>(0,2,32,"shop-wall-top"));

@@ -2,11 +2,7 @@
 #include <iostream>
 #include "floor.h"
 
-Floor::Floor(int x, int y, int size, std::string filename): x(x), y(y), size(size), filename(filename) {
-    loadTexture(filename);
-    init();
-}
-
+//Private func
 void Floor::loadTexture(std::string filename) {
     if (!texture.loadFromFile("../assets/world/" + filename + ".png")) {
         std::cerr << "Texture error for wall: " << filename << "\n";
@@ -23,6 +19,13 @@ void Floor::init() {
     sprite.setPosition(x*size, y*size);
 
 }
+
+//Public func
+Floor::Floor(int x, int y, int size, std::string filename): x(x), y(y), size(size), filename(filename) {
+    loadTexture(filename);
+    init();
+}
+
 
 void Floor::draw(sf::RenderWindow& window) {
     window.draw(sprite);

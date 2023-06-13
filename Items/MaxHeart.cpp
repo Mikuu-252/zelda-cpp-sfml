@@ -1,5 +1,3 @@
-
-
 #include "MaxHeart.h"
 
 MaxHeart::MaxHeart(const std::string &filename, bool pickable, bool usable, bool purchasable, std::string tag, int value, int x, int y)

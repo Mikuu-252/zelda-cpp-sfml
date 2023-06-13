@@ -4,10 +4,12 @@
 #include "Items/Ruppes.h"
 #include "Items/HealHeart.h"
 
-
+//Public func
 Game::Game(sf::RenderWindow &window) : mainWindow(window), ui(6, 5) {
     //mainWindow.create(sf::VideoMode(screenWidth, screenHeight), "The copy of Zelda");
     mainWindow.setFramerateLimit(fps);
+    screenWidth = mainWindow.getSize().x;
+    screenHeight = mainWindow.getSize().y;
 
 }
 
@@ -45,11 +47,12 @@ void Game::gameLoop() {
     }
 }
 
+//Private func
+
 //Create
 void Game::createObjects() {
     activeLevel = worldMap.getLevel();
 }
-
 
 
 //Update
@@ -97,7 +100,7 @@ void Game::updateObjects() {
     }
 
     //Pick items
-    pickUpItems(x, y);
+    pickUpItems();
 
     //Use item
     updateSwords();
@@ -107,126 +110,6 @@ void Game::updateObjects() {
 
     //Update ui
     ui.update(player.getMaxHp(), player.getHp(), player.getMoney());
-
-}
-
-//Draw
-void Game::drawObjects() {
-
-
-    activeLevel.teleport.draw(mainWindow);
-
-    for (size_t idx=0; idx<activeLevel.floors.size(); idx++) {
-        activeLevel.floors[idx]->draw(mainWindow);
-    }
-
-    for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
-        activeLevel.walls[idx]->draw(mainWindow);
-    }
-
-
-    drawSwords();
-
-    for (size_t idx=0; idx<activeLevel.pickUps.size(); idx++) {
-        activeLevel.pickUps[idx]->draw(mainWindow);
-    }
-
-    for (size_t idx=0; idx<activeLevel.enemies.size(); idx++) {
-        activeLevel.enemies[idx]->draw(mainWindow);
-    }
-
-    player.draw(mainWindow);
-    ui.draw(mainWindow);
-}
-
-
-bool Game::checkCollision(const sf::Sprite &sprite1, const sf::Sprite &sprite2) {
-    sf::FloatRect bounds1 = sprite1.getGlobalBounds();
-    sf::FloatRect bounds2 = sprite2.getGlobalBounds();
-
-    return bounds1.intersects(bounds2);
-}
-
-bool Game::anyWallCollisionPlayer() {
-    bool anyWallCollision = false;
-
-
-    sf::Sprite playerSprite = player.getSprite();
-
-    for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
-        if(Game::checkCollision(playerSprite , activeLevel.walls[idx]->getSprite())){
-            anyWallCollision = true;
-            break;
-        }
-    }
-
-    return anyWallCollision;
-}
-
-bool Game::anyWallCollisionEnemy(int idx) {
-    bool anyWallCollision = false;
-
-
-    sf::Sprite enemySprite = activeLevel.enemies[idx]->getSprite();
-
-    for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
-        if(Game::checkCollision(enemySprite , activeLevel.walls[idx]->getSprite())){
-            anyWallCollision = true;
-            break;
-        }
-    }
-
-    return anyWallCollision;
-}
-
-bool Game::checkBorderCollision(int x, int y) {
-
-    if(x < 16 || y < 64 || x > screenWidth-30 || y > screenHeight-30) {
-        return true;
-    }
-    return false;
-}
-
-void Game::changeLevel() {
-    int lastMove = player.getLastMove();
-
-    player.changeLevelPos();
-
-    if (lastMove == 1) {
-        worldMap.changeActiveLevel(0,-1,0);
-    } else if (lastMove == 2) {
-        worldMap.changeActiveLevel(0,1,0);
-
-    } else if (lastMove == 3) {
-        worldMap.changeActiveLevel(-1,0,0);
-
-    } else {
-        worldMap.changeActiveLevel(1,0,0);
-    }
-
-    for (size_t idx=0; idx<activeLevel.enemies.size(); idx++) {
-        activeLevel.enemies[idx]->resetPosition();
-    }
-
-    activeLevel = worldMap.getLevel();
-}
-
-bool Game::checkLevelChange() {
-    int x = player.getSprite().getPosition().x;
-    int y = player.getSprite().getPosition().y;
-
-
-    if (y == 70) {
-        return true;
-    } else if (y == screenHeight - 32) {
-        return true;
-    } else if ( x == 32) {
-        return true;
-    } else if (x == screenWidth - 32) {
-        return true;
-    }
-
-    return false;
 
 }
 
@@ -252,17 +135,7 @@ void Game::updateSwords() {
     }
 }
 
-void Game::drawSwords() {
-    if(basicSword.getIsActive()) {
-        basicSword.draw(mainWindow);
-    }
-
-    if(upgradeSword.getIsActive()) {
-        upgradeSword.draw(mainWindow);
-    }
-}
-
-void Game::pickUpItems(int x, int y) {
+void Game::pickUpItems() {
     std::vector<size_t> indicesToRemove;
 
     for (size_t idx=0; idx<activeLevel.pickUps.size(); idx++) {
@@ -382,6 +255,142 @@ void Game::dmgController() {
         }
     }
 }
+
+void Game::changeLevel() {
+    int lastMove = player.getLastMove();
+
+    player.changeLevelPos();
+
+    if (lastMove == 1) {
+        worldMap.changeActiveLevel(0,-1,0);
+    } else if (lastMove == 2) {
+        worldMap.changeActiveLevel(0,1,0);
+
+    } else if (lastMove == 3) {
+        worldMap.changeActiveLevel(-1,0,0);
+
+    } else {
+        worldMap.changeActiveLevel(1,0,0);
+    }
+
+    for (size_t idx=0; idx<activeLevel.enemies.size(); idx++) {
+        activeLevel.enemies[idx]->resetPosition();
+    }
+
+    activeLevel = worldMap.getLevel();
+}
+
+//Draw
+void Game::drawObjects() {
+
+
+    activeLevel.teleport.draw(mainWindow);
+
+    for (size_t idx=0; idx<activeLevel.floors.size(); idx++) {
+        activeLevel.floors[idx]->draw(mainWindow);
+    }
+
+    for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
+        activeLevel.walls[idx]->draw(mainWindow);
+    }
+
+
+    drawSwords();
+
+    for (size_t idx=0; idx<activeLevel.pickUps.size(); idx++) {
+        activeLevel.pickUps[idx]->draw(mainWindow);
+    }
+
+    for (size_t idx=0; idx<activeLevel.enemies.size(); idx++) {
+        activeLevel.enemies[idx]->draw(mainWindow);
+    }
+
+    player.draw(mainWindow);
+    ui.draw(mainWindow);
+}
+
+void Game::drawSwords() {
+    if(basicSword.getIsActive()) {
+        basicSword.draw(mainWindow);
+    }
+
+    if(upgradeSword.getIsActive()) {
+        upgradeSword.draw(mainWindow);
+    }
+}
+
+//Collisions
+bool Game::checkCollision(const sf::Sprite &sprite1, const sf::Sprite &sprite2) {
+    sf::FloatRect bounds1 = sprite1.getGlobalBounds();
+    sf::FloatRect bounds2 = sprite2.getGlobalBounds();
+
+    return bounds1.intersects(bounds2);
+}
+
+bool Game::checkBorderCollision(int x, int y) {
+
+    if(x < 16 || y < 64 || x > screenWidth-30 || y > screenHeight-30) {
+        return true;
+    }
+    return false;
+}
+
+bool Game::anyWallCollisionPlayer() {
+    bool anyWallCollision = false;
+
+
+    sf::Sprite playerSprite = player.getSprite();
+
+    for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
+        if(Game::checkCollision(playerSprite , activeLevel.walls[idx]->getSprite())){
+            anyWallCollision = true;
+            break;
+        }
+    }
+
+    return anyWallCollision;
+}
+
+bool Game::anyWallCollisionEnemy(int idx) {
+    bool anyWallCollision = false;
+
+
+    sf::Sprite enemySprite = activeLevel.enemies[idx]->getSprite();
+
+    for (size_t idx=0; idx<activeLevel.walls.size(); idx++) {
+        if(Game::checkCollision(enemySprite , activeLevel.walls[idx]->getSprite())){
+            anyWallCollision = true;
+            break;
+        }
+    }
+
+    return anyWallCollision;
+}
+
+bool Game::checkLevelChange() {
+    int x = player.getSprite().getPosition().x;
+    int y = player.getSprite().getPosition().y;
+
+
+    if (y == 70) {
+        return true;
+    } else if (y == screenHeight - 32) {
+        return true;
+    } else if ( x == 32) {
+        return true;
+    } else if (x == screenWidth - 32) {
+        return true;
+    }
+
+    return false;
+
+}
+
+
+
+
+
+
 
 
 

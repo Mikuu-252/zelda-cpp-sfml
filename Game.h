@@ -11,20 +11,16 @@
 
 
 class Game {
-    int screenWidth = 384;
-    int screenHeight = 320;
-    int fps = 240;
-    enum class GameState{Pause, Play, Menu};
-    GameState gameState;
+    int screenWidth;
+    int screenHeight;
+    int fps = 144;
     sf::RenderWindow &mainWindow;
-
 
     //Game objects
     Player player;
     Ui ui;
     WorldMap worldMap;
     Level activeLevel;
-
 
     Sword basicSword = Sword("sword1", true, true, false, "basicSword",-100,-100,0 , 1, true);
     Sword upgradeSword = Sword("sword2", false, true,true, "upgradeSword",-100,-100, 15, 3 , false);
@@ -33,16 +29,17 @@ class Game {
     //Func
     void createObjects();
 
-
+    //Update
     void updateObjects();
     void updateSwords();
-    void pickUpItems(int x, int y);
+    void pickUpItems();
     void dmgController();
+    void changeLevel();
 
+    //Draw
     void drawObjects();
     void drawSwords();
 
-    void changeLevel();
 
     //Collisions
     bool checkCollision(const sf::Sprite& sprite1, const sf::Sprite& sprite2);

@@ -1,11 +1,7 @@
 #include <iostream>
 #include "Player.h"
 
-Player::Player() {
-    loadTexture();
-    init();
-}
-
+//Private func
 void Player::loadTexture() {
     if (!texture.loadFromFile("../assets/entity/character.png")) {
         std::cerr << "Texture error player \n";
@@ -53,22 +49,50 @@ void Player::init() {
 
 }
 
-int Player::getMoney() const {
-    return money;
+void Player::playerAnim(sf::Vector2f movement) {
+
+    int frameIndex = 0;
+    sf::Time currentTime = clock.getElapsedTime();
+    frameIndex = static_cast<int>(currentTime.asSeconds() * animSpeed) % frameNumber;
+
+    if (movement.x < 0.f) {
+        sprite.setTextureRect(animLeft[frameIndex]);
+    }
+    else if (movement.x > 0.f) {
+        sprite.setTextureRect(animRight[frameIndex]);
+    }
+    else if (movement.y < 0.f) {
+        sprite.setTextureRect(animUp[frameIndex]);
+    }
+    else if (movement.y > 0.f) {
+        sprite.setTextureRect(animDown[frameIndex]);
+    }
 }
 
-void Player::setMoney(int money) {
-    Player::money = money;
+void Player::playerMove(sf::Vector2f movement) {
+    sprite.move(movement);
 }
 
-int Player::getHp() const {
-    return hp;
+//Public func
+Player::Player() {
+    loadTexture();
+    init();
 }
 
-void Player::setHp(int hp) {
-    Player::hp = hp;
+void Player::reset() {
+    hp = maxHp;
+
+    sprite.setPosition(256, 192);
 }
 
+
+//Draw
+void Player::draw(sf::RenderWindow& window) {
+    window.draw(sprite);
+}
+
+
+//Update
 void Player::update() {
     sf::Vector2f movement(0.f, 0.f);
 
@@ -113,42 +137,6 @@ void Player::negativeUpdate() {
     playerMove(movement);
 }
 
-void Player::draw(sf::RenderWindow& window) {
-    window.draw(sprite);
-}
-
-void Player::playerMove(sf::Vector2f movement) {
-    sprite.move(movement);
-}
-
-void Player::playerAnim(sf::Vector2f movement) {
-
-    int frameIndex = 0;
-    sf::Time currentTime = clock.getElapsedTime();
-    frameIndex = static_cast<int>(currentTime.asSeconds() * animSpeed) % frameNumber;
-
-    if (movement.x < 0.f) {
-        sprite.setTextureRect(animLeft[frameIndex]);
-    }
-    else if (movement.x > 0.f) {
-        sprite.setTextureRect(animRight[frameIndex]);
-    }
-    else if (movement.y < 0.f) {
-        sprite.setTextureRect(animUp[frameIndex]);
-    }
-    else if (movement.y > 0.f) {
-        sprite.setTextureRect(animDown[frameIndex]);
-    }
-}
-
-const sf::Sprite &Player::getSprite() const {
-    return sprite;
-}
-
-int Player::getLastMove() const {
-    return lastMove;
-}
-
 void Player::changeLevelPos() {
     int x = sprite.getPosition().x;
     int y = sprite.getPosition().y;
@@ -167,16 +155,26 @@ void Player::changeLevelPos() {
     }
 }
 
-void Player::setPosition(int x, int y) {
-    sprite.setPosition(x, y);
+
+//Getter
+const sf::Sprite &Player::getSprite() const {
+    return sprite;
+}
+
+int Player::getLastMove() const {
+    return lastMove;
 }
 
 int Player::getMaxHp() const {
     return maxHp;
 }
 
-void Player::setMaxHp(int maxHp) {
-    Player::maxHp = maxHp;
+int Player::getHp() const {
+    return hp;
+}
+
+int Player::getMoney() const {
+    return money;
 }
 
 int Player::getImmortalFrames() const {
@@ -187,6 +185,24 @@ int Player::getMaxImmortalFrames() const {
     return maxImmortalFrames;
 }
 
+
+//Setter
+void Player::setPosition(int x, int y) {
+    sprite.setPosition(x, y);
+}
+
+void Player::setMaxHp(int maxHp) {
+    Player::maxHp = maxHp;
+}
+
+void Player::setHp(int hp) {
+    Player::hp = hp;
+}
+
+void Player::setMoney(int money) {
+    Player::money = money;
+}
+
 void Player::setImmortalFrames(int immortalFrames) {
     Player::immortalFrames = immortalFrames;
 }
@@ -195,8 +211,4 @@ void Player::takeDmg(int dmg) {
     hp -= dmg;
 }
 
-void Player::reset() {
-    hp = maxHp;
 
-    sprite.setPosition(256, 192);
-}

@@ -23,6 +23,8 @@ W projekcie chciałbym zamieścić:
 <li>Rupees - https://www.spriters-resource.com/custom_edited/thelegendofzeldacustoms/sheet/17479/</li>
 <li>Items - https://www.spriters-resource.com/custom_edited/thelegendofzeldacustoms/sheet/60633/</li>
 <li>Map textures based on - https://www.spriters-resource.com/custom_edited/thelegendofzeldacustoms/sheet/129631/</li>
+<li>Shop textures - https://opengameart.org/content/16-bit-tileset-topdown-zelda-like</li>
+
 </ul>
 
 ## Authors

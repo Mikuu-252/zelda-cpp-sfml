@@ -1,12 +1,7 @@
-
-
 #include <iostream>
 #include "Ui.h"
 
-Ui::Ui(int maxHp, int money): maxHp(maxHp), moneyValue(money) {
-    init();
-}
-
+//Private func
 void Ui::init() {
     //Font
     if (!font.loadFromFile("../assets/ui/arial.ttf"))
@@ -44,6 +39,19 @@ void Ui::init() {
     moneyText.setPosition(364,0);
 }
 
+//Public func
+Ui::Ui(int maxHp, int money): maxHp(maxHp), moneyValue(money) {
+    init();
+}
+
+//Update
+void Ui::update(int maxHp, int hp, int money) {
+    this->maxHp = maxHp;
+    this->hp = hp;
+    this->moneyValue = money;
+}
+
+//Draw
 void Ui::draw(sf::RenderWindow &window) {
 
     //Heart draw
@@ -83,10 +91,4 @@ void Ui::draw(sf::RenderWindow &window) {
     moneyText.setString(std::to_string(moneyValue));
     window.draw(money.sprite);
     window.draw(moneyText);
-}
-
-void Ui::update(int maxHp, int hp, int money) {
-    this->maxHp = maxHp;
-    this->hp = hp;
-    this->moneyValue = money;
 }
