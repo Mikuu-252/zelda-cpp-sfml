@@ -3,7 +3,7 @@
 Simple Zelda-like game demo
 
 ## Description
-C++ project, powered by SFML, is a simple game demo inspired by <a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda_(video_game)">"The Legends of Zelda"</a>..
+C++ project, powered by SFML, is a simple game demo inspired by <a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda_(video_game)">"The Legends of Zelda"</a>.
 
 ## Used Sprites
 <ul>
