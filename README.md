@@ -1,20 +1,9 @@
-# PO23_SR17_272241
+#zelda-cpp-sfml
 ## Name
-Programowanie obiektowe - Projekt Zaliczeniowy
+Simple Zelda-like game demo
 
 ## Opis projektu
-Gra inspirowana <a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda_(video_game)">"The Legends of Zelda"</a>.
-<br>
-<br>
-W projekcie chciałbym zamieścić:
-<ul>
-<li>Obsługę postaci</li>
-<li>Walkę</li>
-<li>Kilka rodzajów przeciwników</li>
-<li>Przedmioty użytkowe</li>
-<li>Sklep</li>
-<li>Mapę świata</li>
-</ul>
+C++ project, powered by SFML, is a simple game demo inspired by <a href="https://en.wikipedia.org/wiki/The_Legend_of_Zelda_(video_game)">"The Legends of Zelda"</a>..
 
 ## Used Sprites
 <ul>
