@@ -116,17 +116,33 @@ void Game::updateObjects() {
 void Game::updateSwords() {
 
     if (basicSword.getIsActive()) {
-        basicSword.hide();
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            basicSword.show(player.getSprite().getPosition().x, player.getSprite().getPosition().y, player.getLastMove());
+        if(basicSword.getShowTime() == basicSword.getMaxShowTime()) {
+            basicSword.hide();
+            basicSword.setShowTime(0);
+        } else {
+            basicSword.setShowTime(basicSword.getShowTime() + 1);
         }
+
+        if(basicSword.getSwordCd() == basicSword.getSwordMaxCd()) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+                basicSword.show(player.getSprite().getPosition().x, player.getSprite().getPosition().y, player.getLastMove());
+                basicSword.setSwordCd(0);
+            }
+        } else {
+                basicSword.setSwordCd(basicSword.getSwordCd() + 1);
+            }
     }
 
-    if (upgradeSword.getIsActive()) {
-        upgradeSword.hide();
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            upgradeSword.show(player.getSprite().getPosition().x, player.getSprite().getPosition().y, player.getLastMove());
+    if(upgradeSword.getSwordCd() == upgradeSword.getSwordMaxCd()) {
+        if (upgradeSword.getIsActive()) {
+            upgradeSword.hide();
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+                upgradeSword.show(player.getSprite().getPosition().x, player.getSprite().getPosition().y,
+                                  player.getLastMove());
+            }
         }
+    } else {
+            upgradeSword.setSwordCd(upgradeSword.getSwordCd() + 1);
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::F11)) {

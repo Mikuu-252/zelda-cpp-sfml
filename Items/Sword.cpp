@@ -40,9 +40,36 @@ bool Sword::getIsActive() const {
     return isActive;
 }
 
+int Sword::getSwordCd() const {
+    return swordCd;
+}
+
+int Sword::getSwordMaxCd() const {
+    return swordMaxCd;
+}
+
+int Sword::getShowTime() const {
+    return showTime;
+}
+
+int Sword::getMaxShowTime() const {
+    return maxShowTime;
+}
+
 //Setter
 void Sword::setIsActive(bool isActive) {
     Sword::isActive = isActive;
 }
+
+void Sword::setSwordCd(int swordCd) {
+    Sword::swordCd = swordCd;
+}
+
+void Sword::setShowTime(int showTime) {
+    Sword::showTime = showTime;
+}
+
+
+
 
 
