@@ -1,4 +1,4 @@
-#zelda-cpp-sfml
+# zelda-cpp-sfml
 ## Name
 Simple Zelda-like game demo
 
