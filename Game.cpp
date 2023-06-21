@@ -179,6 +179,7 @@ void Game::pickUpItems() {
                     }
                 } else if (activeLevel.pickUps[idx]->getTag() == "MaxHeart") {
                     player.setMaxHp(player.getMaxHp() + activeLevel.pickUps[idx]->pickUp());
+                    player.setHp(player.getHp() + 2);
                     indicesToRemove.push_back(idx);
                 }
             }
